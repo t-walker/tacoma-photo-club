@@ -2,6 +2,7 @@
   {
     "name": "Moody's Film Lab",
     "location": "Burien, WA",
+    "milesFromTacoma": 22,
     "capabilities": ["C-41", "B&W", "E-6", "35mm", "120", "Scanning", "Prints"],
     "priceRange": "$$",
     "dropOff": "831 SW 149th St, Burien",
@@ -20,6 +21,7 @@
   {
     "name": "We Develop Film (Photo HQ)",
     "location": "Edmonds, WA",
+    "milesFromTacoma": 45,
     "capabilities": ["C-41", "B&W", "E-6", "35mm", "120", "Scanning", "Prints", "Restoration"],
     "priceRange": "$$",
     "dropOff": "186 Sunset Ave, Edmonds",
@@ -32,6 +34,7 @@
   {
     "name": "Panda Lab",
     "location": "Seattle, WA",
+    "milesFromTacoma": 33,
     "capabilities": ["C-41", "B&W", "E-6", "35mm", "120", "Scanning", "Darkroom prints", "Giclée"],
     "priceRange": "$$$",
     "dropOff": "533 Warren Ave N, Seattle",
@@ -44,6 +47,7 @@
   {
     "name": "The Darkroom",
     "location": "Mail order (California)",
+    "milesFromTacoma": null,
     "capabilities": ["C-41", "B&W", "E-6", "35mm", "120 / 220", "110 / 126 / APS", "Large format", "Disposables", "Scanning", "Prints"],
     "priceRange": "$$",
     "dropOff": "",
@@ -56,6 +60,7 @@
   {
     "name": "Speedy's 1-Hour Photo",
     "location": "Tacoma, WA",
+    "milesFromTacoma": 7,
     "capabilities": ["C-41", "35mm", "Scanning", "Prints"],
     "priceRange": "$",
     "dropOff": "11702 Pacific Ave S, Tacoma",
@@ -68,6 +73,7 @@
   {
     "name": "Tacoma Photo Center",
     "location": "Tacoma, WA",
+    "milesFromTacoma": 1,
     "capabilities": ["C-41", "B&W", "E-6", "35mm", "120", "Scanning", "Public darkroom", "DIY processing"],
     "priceRange": "$",
     "dropOff": "1720 S 7th St, Suite 103, Tacoma",

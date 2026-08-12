@@ -5,6 +5,7 @@ import labs from "../data/photo-labs.json";
 type Lab = {
   name: string;
   location: string;
+  milesFromTacoma?: number | null;
   capabilities: string[];
   priceRange: string;
   dropOff: string;
@@ -18,10 +19,10 @@ type Lab = {
 const entries = (labs as Lab[])
   .slice()
   .sort((a, b) => {
-    // Labs you can walk into come first; mail-order-only ones trail behind.
-    const aLocal = a.dropOff ? 0 : 1;
-    const bLocal = b.dropOff ? 0 : 1;
-    return aLocal - bLocal || a.name.localeCompare(b.name);
+    // Nearest to Tacoma first; mail-order-only labs (no distance) bring up the rear.
+    const aMiles = a.milesFromTacoma ?? Number.POSITIVE_INFINITY;
+    const bMiles = b.milesFromTacoma ?? Number.POSITIVE_INFINITY;
+    return aMiles - bMiles || a.name.localeCompare(b.name);
   });
 ---
 
@@ -33,8 +34,9 @@ const entries = (labs as Lab[])
     <p class="eyebrow">Member directory</p>
     <h1 class="headline">Photo Labs</h1>
     <p class="lede">
-      Where we send our film. Prices are rough guides, not quotes — call ahead, and tell them the
-      club sent you. Missing a lab? Post it in the Discord and we will add it.
+      Where we send our film, nearest to Tacoma first. Prices are rough guides, not quotes — call
+      ahead, and tell them the club sent you. Missing a lab? Post it in the Discord and we will add
+      it.
     </p>
   </header>
 

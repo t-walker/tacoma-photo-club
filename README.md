@@ -67,6 +67,7 @@ the site hasn't been rebuilt.
   "location": "Portland, OR",
   "capabilities": ["C-41", "B&W", "E-6", "120", "35mm", "Scanning"],
   "priceRange": "$$",              // $, $$ or $$$
+  "milesFromTacoma": 145,          // rough driving miles; null/omitted = mail-order, sorts last
   "dropOff": "8417 N Lombard St, Portland", // the shop counter; "" for mail-order-only labs
   "dropBoxes": [],                 // optional: partner shops that host a drop box
   "mailIn": true,
