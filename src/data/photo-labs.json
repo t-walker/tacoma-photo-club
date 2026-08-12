@@ -45,6 +45,19 @@
     "notes": "Long-running pro lab; archival darkroom printing and heirloom scanning. Call before shipping — mail-in is by arrangement only."
   },
   {
+    "name": "Shy Film Lab",
+    "location": "Portland, OR",
+    "milesFromTacoma": 145,
+    "capabilities": ["C-41", "B&W", "35mm", "120", "Half-frame", "Disposables", "Push / pull", "Scanning", "Prints"],
+    "priceRange": "$$",
+    "dropOff": "",
+    "dropBoxes": ["Retropolitan Vintage Mall — 234 SW Broadway, Portland"],
+    "mailIn": true,
+    "turnaround": "Ask at drop-off",
+    "url": "https://www.shyfilmclub.com/lab",
+    "notes": "The lab arm of Shy Film Club — a community for film photographers who would rather skip the big photowalk. No E-6. Develop-only from $8, develop + scan from $20; push/pull to ±3 stops, high-res, TIFF, full-border and half-frame scans cost extra. Scans arrive as a Google Drive link — download within 30 days. Negatives ship back, get picked up locally, or can be tossed. Mail to PO Box 1364, Beaverton, OR 97075."
+  },
+  {
     "name": "Ambient Film Lab",
     "location": "Gaston, OR",
     "milesFromTacoma": 175,
