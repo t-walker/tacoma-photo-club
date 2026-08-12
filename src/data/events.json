@@ -1,42 +1,138 @@
 [
   {
-    "id": "darkroom-night",
-    "title": "Darkroom Night",
-    "location": "Hilltop Community Darkroom, Tacoma",
-    "date": "2026-09-18T18:00:00-07:00",
-    "description": "Bring exposed black-and-white rolls. We develop, we hang, we argue about agitation.",
-    "flier": "darkroom-night.jpg"
+    "id": "boats-on-digital",
+    "title": "Boats on Digital",
+    "location": "Point Defiance Ferry Terminal",
+    "date": "2026-08-15T17:00:00-07:00",
+    "description": "Tacoma Photo Club x Ferries on Film. Bring the digital body for once — we are shooting boats.",
+    "flier": "boats-on-digital.jpg"
   },
   {
-    "id": "sound-long-exposure",
-    "title": "Long Exposure on the Sound",
-    "location": "Ruston Way Waterfront",
-    "date": "2026-10-03T19:30:00-07:00",
-    "description": "Tripods out at dusk for ferry trails and mill lights. Cable releases encouraged.",
-    "flier": "sound-long-exposure.jpg"
+    "id": "walk-and-meet-sam-horine",
+    "title": "Walk & Meet with Sam Horine",
+    "location": "Peaks & Pints, Tacoma",
+    "date": "2026-07-25T18:00:00-07:00",
+    "description": "A walk and a meetup with guest host Sam Horine.",
+    "flier": "walk-and-meet-sam-horine.jpg"
   },
   {
-    "id": "print-critique",
-    "title": "Print Critique",
-    "location": "Tacoma Public Library, Olympic Room",
-    "date": "2026-08-27T18:30:00-07:00",
-    "description": "Bring three prints. Kind eyes, honest mouths. Everyone gets ten minutes.",
-    "flier": "print-critique.jpg"
+    "id": "cyanotype-in-the-park",
+    "title": "Cyanotype in the Park",
+    "location": "Wright Park — meet in front of the observatory",
+    "date": "2026-07-11T13:00:00-07:00",
+    "description": "Sun printing on the lawn. All experience levels welcome.",
+    "flier": "cyanotype-in-the-park.jpg"
   },
   {
-    "id": "film-swap",
-    "title": "Summer Film Swap",
-    "location": "Wright Park Bandstand",
-    "date": "2026-07-12T11:00:00-07:00",
-    "description": "Trade expired stock, spare bodies, and lens caps nobody can identify.",
-    "flier": "film-swap.jpg"
+    "id": "mckinley-photo-walk",
+    "title": "McKinley Photo Walk",
+    "location": "McKinley neighborhood — meet at Dusty's Hideaway",
+    "date": "2026-06-06T17:00:00-07:00",
+    "description": "A loop through McKinley, then a 21+ happy hour after the walk. All cameras welcome!",
+    "flier": "mckinley-photo-walk.jpg"
   },
   {
-    "id": "point-defiance-walk",
-    "title": "Point Defiance Photo Walk",
-    "location": "Point Defiance Park, Five Mile Drive",
-    "date": "2026-06-06T09:00:00-07:00",
-    "description": "A slow loop through the old growth. One roll, one lens, no hurry.",
-    "flier": "point-defiance-walk.jpg"
+    "id": "portland-field-trip",
+    "title": "Portland Field Trip",
+    "location": "Portland, Oregon",
+    "date": "2026-05-16T08:00:00-07:00",
+    "description": "Tacoma Photo Club x Northwest Depressed x PDX Film League — a field trip south, by train, with exclusive merch. 80+ photographers turned out.",
+    "flier": "portland-field-trip.jpg"
+  },
+  {
+    "id": "hilltop-photo-walk",
+    "title": "Photo Walk: Hilltop",
+    "location": "Hilltop, Tacoma",
+    "date": "2026-04-11T17:00:00-07:00",
+    "description": "All cameras welcome. 21+ happy hour afterwards at The Huckleberry Club.",
+    "flier": "hilltop-photo-walk.jpg"
+  },
+  {
+    "id": "ladies-and-non-binary-meet",
+    "title": "Ladies & Non-Binary Meet",
+    "location": "Manifesto Coffee, 1003 S 11th St, Tacoma",
+    "date": "2026-03-22T11:00:00-07:00",
+    "description": "A morning meetup for the ladies and non-binary members of the club. 11am to 1pm.",
+    "flier": "ladies-and-non-binary-meet.jpg"
+  },
+  {
+    "id": "print-exchange-meetup",
+    "title": "Print Exchange Meetup",
+    "location": "7 Seas Brewery, Tacoma",
+    "date": "2026-03-15T15:00:00-07:00",
+    "description": "Bring 3-5 of your favourite unframed prints, 4x5 up to 8x10. Each print you bring gets you one in return. All ages.",
+    "flier": "print-exchange-meetup.jpg"
+  },
+  {
+    "id": "porchlight-hangout",
+    "title": "Hang Out With Us",
+    "location": "Porchlight Bar & Grill, 2708 6th Ave, Tacoma",
+    "date": "2026-02-20T18:00:00-08:00",
+    "description": "No agenda, just the club in one room. All cameras welcome, 21+.",
+    "flier": "porchlight-hangout.jpg"
+  },
+  {
+    "id": "red-hot-fundraiser",
+    "title": "The Red Hot Fundraiser",
+    "location": "The Red Hot, Tacoma",
+    "date": "2026-01-14T17:00:00-08:00",
+    "description": "Supporting the Tacoma Photo Center. $1 art prints, hot dogs, good company. 5 to 7pm.",
+    "flier": "red-hot-fundraiser.jpg"
+  },
+  {
+    "id": "bowling-meetup",
+    "title": "Bowling Meetup",
+    "location": "Tower Lanes, 6323 6th Ave, Tacoma",
+    "date": "2026-01-10T17:00:00-08:00",
+    "description": "Rented shoes, bad form, high shutter speeds.",
+    "flier": "bowling-meetup.jpg"
+  },
+  {
+    "id": "grit-art-show",
+    "title": "GRIT — A Group Photography Art Show",
+    "location": "Manuscript, 203 Tacoma Ave S, Tacoma",
+    "date": "2025-12-13T17:00:00-08:00",
+    "description": "Tacoma Photo Club x Shutter & Light Collective. Work from more than thirty club photographers, 5 to 8pm.",
+    "flier": "grit-art-show.jpg"
+  },
+  {
+    "id": "s-tacoma-way-walk",
+    "title": "Photo Walk: S Tacoma Way",
+    "location": "S Tacoma Way — Bluebeard Coffee",
+    "date": "2025-11-15T16:00:00-08:00",
+    "description": "A walk down S Tacoma Way with a happy hour after.",
+    "flier": "s-tacoma-way-walk.jpg"
+  },
+  {
+    "id": "ferries-on-film",
+    "title": "Ferries on Film — Meet Up & Happy Hour",
+    "location": "Point Defiance Ferry Terminal",
+    "date": "2025-08-09T17:00:00-07:00",
+    "description": "Ride the boat, shoot the boat, drink after the boat.",
+    "flier": "ferries-on-film.jpg"
+  },
+  {
+    "id": "red-hot-call-for-prints",
+    "title": "The Red Hot Meetup & Call for Prints",
+    "location": "The Red Hot, Tacoma",
+    "date": "2025-07-09T17:00:00-07:00",
+    "description": "The Red Hot has a card dispenser and wanted 140 prints to load it up with. Come pull a print out of the vending machine.",
+    "flier": "red-hot-call-for-prints.jpg"
+  },
+  {
+    "id": "grand-cinema-after-party",
+    "title": "Photo Walk After Party",
+    "location": "The Grand Cinema, 606 Fawcett Ave, Tacoma",
+    "date": "2025-05-17T18:00:00-07:00",
+    "description": "Meet in front of The Grand Cinema after the Tacoma Photo Center's anniversary party, then walk.",
+    "flier": "grand-cinema-after-party.jpg"
+  },
+  {
+    "id": "stadium-district-walk",
+    "title": "Stadium District Photo Walk",
+    "location": "Stadium District — meet in front of Stadium High School",
+    "date": "2025-04-19T18:00:00-07:00",
+    "description": "A walk around the Stadium District. All ages, all cameras, all skill levels welcome.",
+    "flier": "stadium-district-walk.jpg"
   }
 ]
