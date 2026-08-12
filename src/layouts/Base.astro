@@ -34,7 +34,12 @@ const isCurrent = (href: string) => !href.startsWith("http") && (href.replace(/\
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <link rel="icon" href={withBase("/favicon.svg")} type="image/svg+xml" />
+    <meta property="og:image" content={new URL(withBase("/og-image.png"), Astro.site ?? Astro.url)} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#f2efea" />
+    <link rel="icon" href={withBase("/icon-32.png")} type="image/png" sizes="32x32" />
+    <link rel="icon" href={withBase("/icon-512.png")} type="image/png" sizes="512x512" />
+    <link rel="apple-touch-icon" href={withBase("/icon-180.png")} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

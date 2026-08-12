@@ -67,7 +67,8 @@ the site hasn't been rebuilt.
   "location": "Portland, OR",
   "capabilities": ["C-41", "B&W", "E-6", "120", "35mm", "Scanning"],
   "priceRange": "$$",              // $, $$ or $$$
-  "dropOff": ["8417 N Lombard St, Portland"],
+  "dropOff": "8417 N Lombard St, Portland", // the shop counter; "" for mail-order-only labs
+  "dropBoxes": [],                 // optional: partner shops that host a drop box
   "mailIn": true,
   "turnaround": "2-3 weeks",       // optional
   "url": "https://www.bluemooncamera.com", // optional

@@ -1,13 +1,17 @@
 :root {
-  /* 70s print palette: newsprint stock, warm process inks */
-  --paper: #f3ecdb;
-  --paper-edge: #ddd3ba;
-  --desk: #cdc3aa;
-  --ink: #191612;
-  --ink-soft: #4a443a;
-  --ink-faint: #8a8171;
-  --accent: #c8501e;
-  --accent-deep: #8c2f16;
+  /* Club palette, sampled from the 2024 logo: cream stock printed in two spot
+     colours — brand blue and coral — with navy for the heavy ink. */
+  --paper: #f2efea;
+  --paper-edge: #ddd6c9;
+  --desk: #b9c4ce;
+  --ink: #10243a;
+  --ink-soft: #3f5a73;
+  --ink-faint: #8496a5;
+  --navy: #044682;
+  --blue: #2e80d6;
+  --coral: #ff6940;
+  --accent: var(--coral);
+  --accent-deep: #cf4213;
 
   --rule-thick: 3px;
   --rule-thin: 1px;
@@ -90,7 +94,7 @@ a {
 
 .masthead {
   padding-top: clamp(0.9rem, 2.5vw, 1.6rem);
-  border-bottom: var(--rule-thick) solid var(--ink);
+  border-bottom: var(--rule-thick) solid var(--navy);
   margin-bottom: clamp(1rem, 3vw, 1.75rem);
 }
 
@@ -122,6 +126,7 @@ a {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   text-decoration: none;
+  color: var(--navy);
   padding: 0.25rem 0;
   border-bottom: var(--rule-thick) solid transparent;
 }
@@ -133,7 +138,7 @@ a {
 }
 
 .nav a[aria-current="page"] {
-  border-bottom-color: var(--ink);
+  border-bottom-color: var(--navy);
 }
 
 .nav a[data-external]::after {
@@ -149,6 +154,7 @@ a {
   font-size: clamp(2.1rem, 8.6vw, 5rem);
   line-height: 0.98;
   letter-spacing: -0.035em;
+  color: var(--navy);
   margin: 0.35em 0 0.5em;
 }
 
@@ -182,7 +188,7 @@ a {
 
 .rule {
   border: 0;
-  border-top: var(--rule-thin) solid var(--ink);
+  border-top: var(--rule-thin) solid var(--navy);
   margin: clamp(1.25rem, 4vw, 2rem) 0;
 }
 
@@ -251,7 +257,7 @@ a {
 .colophon {
   margin-top: clamp(1.5rem, 5vw, 2.5rem);
   padding-top: 0.75rem;
-  border-top: var(--rule-thin) solid var(--ink);
+  border-top: var(--rule-thin) solid var(--navy);
   display: flex;
   flex-wrap: wrap;
   gap: 0.35rem 1.25rem;
@@ -332,7 +338,7 @@ a {
   margin: 0;
   aspect-ratio: 4 / 5;
   overflow: hidden;
-  outline: var(--rule-thin) solid var(--ink);
+  outline: var(--rule-thin) solid var(--navy);
   outline-offset: -1px;
   background: var(--paper-edge);
 }
@@ -349,6 +355,7 @@ a {
   font-size: clamp(1.6rem, 1.2rem + 2.4vw, 2.9rem);
   line-height: 1;
   letter-spacing: -0.03em;
+  color: var(--navy);
   margin: 0 0 0.5rem;
 }
 
@@ -382,7 +389,7 @@ a {
   display: grid;
   gap: 0.6rem;
   padding-bottom: 0.9rem;
-  border-bottom: var(--rule-thin) solid var(--ink);
+  border-bottom: var(--rule-thin) solid var(--navy);
 }
 
 .event__flier {
@@ -391,7 +398,7 @@ a {
   aspect-ratio: 4 / 5;
   background: var(--paper-edge);
   overflow: hidden;
-  outline: var(--rule-thin) solid var(--ink);
+  outline: var(--rule-thin) solid var(--navy);
   outline-offset: -1px;
 }
 
@@ -412,7 +419,7 @@ a {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   padding: 0.28rem 0.6rem;
-  background: var(--ink);
+  background: var(--navy);
   color: var(--paper);
 }
 
@@ -422,6 +429,7 @@ a {
   font-size: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
   line-height: 1.1;
   letter-spacing: -0.015em;
+  color: var(--navy);
   margin: 0;
 }
 
@@ -473,13 +481,13 @@ a {
   list-style: none;
   margin: 0;
   padding: 0;
-  border-top: var(--rule-thick) solid var(--ink);
+  border-top: var(--rule-thick) solid var(--navy);
 }
 
 .lab {
   padding: clamp(0.9rem, 3vw, 1.4rem) clamp(0.75rem, 2.5vw, 1.25rem);
-  border-bottom: var(--rule-thin) solid var(--ink);
-  border-right: var(--rule-thin) solid var(--ink);
+  border-bottom: var(--rule-thin) solid var(--navy);
+  border-right: var(--rule-thin) solid var(--navy);
 }
 
 .lab__name {
@@ -488,6 +496,7 @@ a {
   font-size: clamp(1.05rem, 0.95rem + 0.5vw, 1.3rem);
   letter-spacing: -0.02em;
   line-height: 1.1;
+  color: var(--navy);
   margin: 0 0 0.15rem;
 }
 
@@ -557,7 +566,7 @@ a {
   font-size: 0.66rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  border: var(--rule-thin) solid var(--ink);
+  border: var(--rule-thin) solid var(--navy);
   padding: 0.12rem 0.4rem;
 }
 
@@ -572,7 +581,7 @@ a {
 }
 
 .badge--yes {
-  background: var(--ink);
+  background: var(--navy);
   color: var(--paper);
 }
 
