@@ -14,6 +14,7 @@
   --accent-deep: #cf4213;
 
   --rule-thick: 3px;
+  --rule-nav: 2px;
   --rule-thin: 1px;
 
   --font-display: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -94,7 +95,7 @@ a {
 
 .masthead {
   padding-top: clamp(0.9rem, 2.5vw, 1.6rem);
-  border-bottom: var(--rule-thick) solid var(--navy);
+  border-bottom: var(--rule-nav) solid var(--navy);
   margin-bottom: clamp(1rem, 3vw, 1.75rem);
 }
 
@@ -128,7 +129,7 @@ a {
   text-decoration: none;
   color: var(--navy);
   padding: 0.25rem 0;
-  border-bottom: var(--rule-thick) solid transparent;
+  border-bottom: var(--rule-nav) solid transparent;
 }
 
 .nav a:hover,
