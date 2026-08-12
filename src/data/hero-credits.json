@@ -4,5 +4,21 @@
     "handle": "twalkerdev",
     "instagram": "https://www.instagram.com/twalkerdev/"
   },
-  "byImage": {}
+  "byImage": {
+    "red-hot-night.jpg": {
+      "name": "Michael Pasquino",
+      "handle": "dawgs_digitals",
+      "instagram": "https://www.instagram.com/dawgs_digitals/"
+    },
+    "house-golden-hour.jpg": {
+      "name": "Michael Pasquino",
+      "handle": "dawgs_digitals",
+      "instagram": "https://www.instagram.com/dawgs_digitals/"
+    },
+    "neon-at-night.jpg": {
+      "name": "Michael Pasquino",
+      "handle": "dawgs_digitals",
+      "instagram": "https://www.instagram.com/dawgs_digitals/"
+    }
+  }
 }

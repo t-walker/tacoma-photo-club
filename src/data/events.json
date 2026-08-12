@@ -42,10 +42,10 @@
   {
     "id": "hilltop-photo-walk",
     "title": "Photo Walk: Hilltop",
-    "location": "Hilltop, Tacoma",
+    "location": "Hilltop — meet at People's Park",
     "date": "2026-04-11T17:00:00-07:00",
-    "description": "All cameras welcome. 21+ happy hour afterwards at The Huckleberry Club.",
-    "flier": "hilltop-photo-walk.jpg"
+    "description": "All cameras welcome. 21+ happy hour afterwards at The Huckleberry Club, 1014 M.L.K. Jr Way.",
+    "flier": "hilltop-photo-walk.png"
   },
   {
     "id": "ladies-and-non-binary-meet",
@@ -61,7 +61,7 @@
     "location": "7 Seas Brewery, Tacoma",
     "date": "2026-03-15T15:00:00-07:00",
     "description": "Bring 3-5 of your favourite unframed prints, 4x5 up to 8x10. Each print you bring gets you one in return. All ages.",
-    "flier": "print-exchange-meetup.jpg"
+    "flier": "print-exchange-meetup.png"
   },
   {
     "id": "porchlight-hangout",
