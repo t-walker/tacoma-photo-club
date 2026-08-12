@@ -134,5 +134,53 @@
     "date": "2025-04-19T18:00:00-07:00",
     "description": "A walk around the Stadium District. All ages, all cameras, all skill levels welcome.",
     "flier": "stadium-district-walk.jpg"
+  },
+  {
+    "id": "sig-brewing-meetup",
+    "title": "Meet Up: Sig Brewing",
+    "location": "Sig Brewing Co, 2534 Tacoma Ave S, Tacoma",
+    "date": "2025-03-21T17:30:00-07:00",
+    "description": "A Friday evening meetup at Sig Brewing. All cameras welcome!",
+    "flier": "sig-brewing-meetup.jpg"
+  },
+  {
+    "id": "new-frontier-meetup",
+    "title": "Meet Up: The New Frontier Lounge",
+    "location": "The New Frontier Lounge, 301 E 25th St, Tacoma",
+    "date": "2025-02-22T18:00:00-08:00",
+    "description": "Club meetup at the New Frontier. Bring a camera, bring a friend.",
+    "flier": "new-frontier-meetup.jpg"
+  },
+  {
+    "id": "tower-lanes-photo-bowl",
+    "title": "Photo Meetup & Bowl",
+    "location": "Tower Lanes, 6323 6th Ave, Tacoma",
+    "date": "2025-01-25T18:00:00-08:00",
+    "description": "Rented shoes and rolls of film. All cameras welcome!",
+    "flier": "tower-lanes-photo-bowl.jpg"
+  },
+  {
+    "id": "holy-moly-meetup",
+    "title": "Meet Up: Holy Moly Bar",
+    "location": "Holy Moly Bar, 3013 6th Ave, Tacoma",
+    "date": "2024-11-27T18:00:00-08:00",
+    "description": "A pre-holiday meetup. All ages. All cameras welcome.",
+    "flier": "holy-moly-meetup.jpg"
+  },
+  {
+    "id": "camp-bar-meetup",
+    "title": "Photo Meetup: The Camp Bar",
+    "location": "The Camp Bar, 1310 Tacoma Ave S, Tacoma",
+    "date": "2024-10-18T18:00:00-07:00",
+    "description": "An October meetup at The Camp Bar. All cameras welcome.",
+    "flier": "camp-bar-meetup.jpg"
+  },
+  {
+    "id": "one-year-anniversary",
+    "title": "One Year Anniversary Party",
+    "location": "Manuscript, 203 Tacoma Ave S, Tacoma",
+    "date": "2024-09-21T15:00:00-07:00",
+    "description": "One year of the Tacoma Photo Club, 3 to 6pm. Prizes, a photoshoot and more.",
+    "flier": "one-year-anniversary.jpg"
   }
 ]
