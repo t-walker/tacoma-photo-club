@@ -1,12 +1,12 @@
 ---
 import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
-import { getEvents } from "../lib/events";
+import { getEvents, getNextEvent } from "../lib/events";
 
 const events = getEvents();
+const nextEvent = getNextEvent(events);
 
 const stampLabels: Record<string, string> = {
-  next: "Next up",
   upcoming: "Upcoming",
   past: "Past",
 };
@@ -17,12 +17,51 @@ const stampLabels: Record<string, string> = {
     <p class="eyebrow">The calendar</p>
     <h1 class="headline">Events</h1>
     <p class="lede">
-      Fliers as we print them. The next event is boxed in red, the rest of the season sits bright,
-      and anything already in the can fades back — hover to bring it up again.
+      Fliers as we print them. What's coming up next is boxed below, and the whole run — upcoming and
+      already shot — follows newest first. Past fliers fade back; hover to bring one up again.
     </p>
   </header>
 
-  <hr class="rule" />
+  {
+    nextEvent ? (
+      <section class="featured" id="featured" data-featured-for={nextEvent.id}>
+        <p class="featured__stamp">Next up</p>
+        <div class="featured__inner" id="featured-inner">
+          <figure class="featured__flier">
+            {nextEvent.flierImage ? (
+              <Image
+                src={nextEvent.flierImage}
+                alt={`Flier for ${nextEvent.title}`}
+                widths={[320, 640, 960]}
+                sizes="(min-width: 720px) 270px, 90vw"
+                loading="eager"
+              />
+            ) : null}
+          </figure>
+          <div class="featured__body">
+            <h2 class="featured__title">
+              {nextEvent.url ? (
+                <a href={nextEvent.url} target="_blank" rel="noopener noreferrer">
+                  {nextEvent.title}
+                </a>
+              ) : (
+                nextEvent.title
+              )}
+            </h2>
+            <p class="featured__meta">
+              {nextEvent.dateLabel}
+              {nextEvent.timeLabel ? ` · ${nextEvent.timeLabel}` : ""}
+              <br />
+              {nextEvent.location}
+            </p>
+            <p class="featured__desc">{nextEvent.description}</p>
+          </div>
+        </div>
+      </section>
+    ) : null
+  }
+
+  {nextEvent ? null : <hr class="rule" />}
 
   {
     events.length === 0 ? (
@@ -30,7 +69,7 @@ const stampLabels: Record<string, string> = {
     ) : (
       <ul class="events" id="events-grid">
         {events.map((event) => (
-          <li class="event" data-status={event.status} data-date={event.date}>
+          <li class="event" data-id={event.id} data-status={event.status} data-date={event.date}>
             <figure class="event__flier">
               {event.flierImage ? (
                 <Image
@@ -67,33 +106,68 @@ const stampLabels: Record<string, string> = {
 
   <script is:inline>
     // The page is static, so an event can go stale between builds. Recompute the
-    // upcoming/next/past split and the display order against the visitor's clock.
+    // upcoming/past split and re-pick the featured event against the visitor's
+    // clock. Grid order is already newest-first and never changes.
     (function () {
       var grid = document.getElementById("events-grid");
       if (!grid) return;
 
-      var labels = { next: "Next up", upcoming: "Upcoming", past: "Past" };
       var now = Date.now();
+      var items = Array.prototype.slice.call(grid.children);
+      var soonest = null;
 
-      var items = Array.prototype.slice.call(grid.children).map(function (li) {
+      items.forEach(function (li) {
         var time = new Date(li.getAttribute("data-date") || "").getTime();
-        return { li: li, time: isNaN(time) ? now : time };
+        if (isNaN(time)) return;
+
+        var status = time < now ? "past" : "upcoming";
+        li.setAttribute("data-status", status);
+        var stamp = li.querySelector(".event__stamp");
+        if (stamp) stamp.textContent = status === "past" ? "Past" : "Upcoming";
+
+        // Newest first, so the last upcoming item we see is the soonest one.
+        if (status === "upcoming") soonest = li;
       });
 
-      var upcoming = items
-        .filter(function (i) { return i.time >= now; })
-        .sort(function (a, b) { return a.time - b.time; });
-      var past = items
-        .filter(function (i) { return i.time < now; })
-        .sort(function (a, b) { return b.time - a.time; });
+      var featured = document.getElementById("featured");
+      if (!featured) return;
 
-      upcoming.concat(past).forEach(function (item, index) {
-        var status = item.time < now ? "past" : index === 0 ? "next" : "upcoming";
-        item.li.setAttribute("data-status", status);
-        var stamp = item.li.querySelector(".event__stamp");
-        if (stamp) stamp.textContent = labels[status];
-        grid.appendChild(item.li);
+      if (!soonest) {
+        featured.hidden = true;
+        return;
+      }
+
+      if (featured.getAttribute("data-featured-for") === soonest.getAttribute("data-id")) return;
+
+      // Build the featured block from the grid entry that is actually next.
+      var inner = document.getElementById("featured-inner");
+      if (!inner) return;
+
+      var flier = inner.querySelector(".featured__flier");
+      var sourceImg = soonest.querySelector("img");
+      if (flier) {
+        flier.innerHTML = "";
+        if (sourceImg) {
+          var img = sourceImg.cloneNode(true);
+          img.setAttribute("sizes", "(min-width: 720px) 270px, 90vw");
+          img.setAttribute("loading", "eager");
+          flier.appendChild(img);
+        }
+      }
+
+      var fields = [
+        [".featured__title", ".event__title"],
+        [".featured__meta", ".event__meta"],
+        [".featured__desc", ".event__desc"],
+      ];
+      fields.forEach(function (pair) {
+        var target = inner.querySelector(pair[0]);
+        var source = soonest.querySelector(pair[1]);
+        if (target && source) target.innerHTML = source.innerHTML;
       });
+
+      featured.setAttribute("data-featured-for", soonest.getAttribute("data-id") || "");
+      featured.hidden = false;
     })();
   </script>
 </Base>

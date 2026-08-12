@@ -70,7 +70,13 @@ const entries = (labs as Lab[])
               {lab.dropOff.length ? (
                 <>
                   <dt>Drop off</dt>
-                  <dd>{lab.dropOff.join(" · ")}</dd>
+                  <dd>
+                    <ul class="places">
+                      {lab.dropOff.map((place) => (
+                        <li>{place}</li>
+                      ))}
+                    </ul>
+                  </dd>
                 </>
               ) : null}
 

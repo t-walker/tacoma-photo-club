@@ -4,11 +4,18 @@
     "location": "Burien, WA",
     "capabilities": ["C-41", "B&W", "E-6", "35mm", "120", "Scanning", "Prints"],
     "priceRange": "$$",
-    "dropOff": ["831 SW 149th St, Burien"],
+    "dropOff": [
+      "Moody's shop — 831 SW 149th St, Burien",
+      "Porchlight Coffee & Records — 1517 14th Ave, Capitol Hill",
+      "Sonic Boom Records — 2209 NW Market St, Ballard",
+      "Bulldog News & Cafe — 4208 University Way NE, U-District",
+      "C&P Coffee — 5612 California Ave SW, West Seattle",
+      "Leica Store — 11111 NE 8th St Suite 130, Bellevue"
+    ],
     "mailIn": true,
     "turnaround": "Call for current estimate",
     "url": "https://www.moodysfilm.com",
-    "notes": "$17/roll develop + scan (C-41 and B&W), $23 for E-6; prints +$10. Scans delivered by WeTransfer. Mail-back of negatives costs extra — say so on your order. Tues-Sat."
+    "notes": "Envelopes and a dropbox are provided at every location — grab a coffee or a record while you drop. $17/roll develop + scan (C-41 and B&W), $23 for E-6; prints +$10. Scans arrive by WeTransfer. Negatives wait two months at the lab, or pay $7 to have them mailed back."
   },
   {
     "name": "We Develop Film (Photo HQ)",

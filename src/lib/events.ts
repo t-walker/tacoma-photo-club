@@ -1,7 +1,7 @@
 import eventsData from "../data/events.json";
 import { getEventFlier } from "./images";
 
-export type EventStatus = "next" | "upcoming" | "past";
+export type EventStatus = "upcoming" | "past";
 
 export type ClubEvent = {
   id: string;
@@ -36,32 +36,25 @@ const timeFormatter = new Intl.DateTimeFormat("en-US", {
 });
 
 /**
- * Events sorted for display: the next one first, then the rest of the upcoming
- * run, then past events newest-first. Statuses are recomputed in the browser
- * (see events.astro) so a stale build never shows a past event as upcoming.
+ * Every event, newest first — upcoming and past interleave in one straight
+ * reverse-chronological run. Statuses are recomputed in the browser (see
+ * events.astro) so a stale build never mislabels an event.
  */
 export function getEvents(now: Date = new Date()): DecoratedEvent[] {
-  const events = (eventsData as ClubEvent[]).map((event) => {
-    const when = new Date(event.date);
-    return {
-      event,
-      when,
-      isPast: when.getTime() < now.getTime(),
-    };
-  });
+  return (eventsData as ClubEvent[])
+    .map((event) => ({ event, when: new Date(event.date) }))
+    .sort((a, b) => b.when.getTime() - a.when.getTime())
+    .map(({ event, when }) => ({
+      ...event,
+      status: when.getTime() < now.getTime() ? ("past" as const) : ("upcoming" as const),
+      flierImage: getEventFlier(event.flier),
+      dateLabel: Number.isNaN(when.getTime()) ? event.date : dateFormatter.format(when),
+      timeLabel: Number.isNaN(when.getTime()) ? "" : timeFormatter.format(when),
+    }));
+}
 
-  const upcoming = events
-    .filter((e) => !e.isPast)
-    .sort((a, b) => a.when.getTime() - b.when.getTime());
-  const past = events
-    .filter((e) => e.isPast)
-    .sort((a, b) => b.when.getTime() - a.when.getTime());
-
-  return [...upcoming, ...past].map(({ event, when, isPast }, index) => ({
-    ...event,
-    status: isPast ? "past" : index === 0 ? "next" : "upcoming",
-    flierImage: getEventFlier(event.flier),
-    dateLabel: Number.isNaN(when.getTime()) ? event.date : dateFormatter.format(when),
-    timeLabel: Number.isNaN(when.getTime()) ? "" : timeFormatter.format(when),
-  }));
+/** The soonest upcoming event — the one that gets the featured slot. */
+export function getNextEvent(events: DecoratedEvent[]): DecoratedEvent | undefined {
+  const upcoming = events.filter((event) => event.status === "upcoming");
+  return upcoming[upcoming.length - 1];
 }
