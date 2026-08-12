@@ -21,6 +21,18 @@ const fallbackBottom = heroSources[1] ?? heroSources[0];
     <noscript>
       <img src={fallbackTop?.src} alt="A photograph by a Tacoma Photo Club member" />
     </noscript>
+    <figcaption class="credit" id="credit-top">
+      <span class="credit__name">{fallbackTop?.credit.name}</span>
+      {
+        fallbackTop?.credit.instagram ? (
+          <a class="credit__handle" href={fallbackTop.credit.instagram} target="_blank" rel="noopener noreferrer">
+            @{fallbackTop.credit.handle}
+          </a>
+        ) : (
+          <span class="credit__handle">@{fallbackTop?.credit.handle}</span>
+        )
+      }
+    </figcaption>
   </figure>
 
   <p class="script script--right">
@@ -77,6 +89,18 @@ const fallbackBottom = heroSources[1] ?? heroSources[0];
     <noscript>
       <img src={fallbackBottom?.src} alt="A photograph by a Tacoma Photo Club member" />
     </noscript>
+    <figcaption class="credit" id="credit-bottom">
+      <span class="credit__name">{fallbackBottom?.credit.name}</span>
+      {
+        fallbackBottom?.credit.instagram ? (
+          <a class="credit__handle" href={fallbackBottom.credit.instagram} target="_blank" rel="noopener noreferrer">
+            @{fallbackBottom.credit.handle}
+          </a>
+        ) : (
+          <span class="credit__handle">@{fallbackBottom?.credit.handle}</span>
+        )
+      }
+    </figcaption>
   </figure>
 
   <script is:inline define:vars={{ heroSources }}>
@@ -93,16 +117,38 @@ const fallbackBottom = heroSources[1] ?? heroSources[0];
           ? (first + 1 + Math.floor(Math.random() * (pool.length - 1))) % pool.length
           : first;
 
-      function apply(id, pick) {
+      function apply(id, creditId, pick) {
         var el = document.getElementById(id);
         if (!el || !pick) return;
         el.width = pick.width;
         el.height = pick.height;
         el.src = pick.src;
+
+        var credit = pick.credit;
+        var box = document.getElementById(creditId);
+        if (!box || !credit) return;
+
+        el.alt = "A photograph by " + credit.name;
+        box.querySelector(".credit__name").textContent = credit.name;
+
+        var handle = box.querySelector(".credit__handle");
+        var wantsLink = Boolean(credit.instagram);
+        if (wantsLink !== (handle.tagName === "A")) {
+          var replacement = document.createElement(wantsLink ? "a" : "span");
+          replacement.className = "credit__handle";
+          handle.replaceWith(replacement);
+          handle = replacement;
+        }
+        handle.textContent = "@" + credit.handle;
+        if (wantsLink) {
+          handle.href = credit.instagram;
+          handle.target = "_blank";
+          handle.rel = "noopener noreferrer";
+        }
       }
 
-      apply("plate-top", pool[first]);
-      apply("plate-bottom", pool[second]);
+      apply("plate-top", "credit-top", pool[first]);
+      apply("plate-bottom", "credit-bottom", pool[second]);
     })();
   </script>
 </Base>

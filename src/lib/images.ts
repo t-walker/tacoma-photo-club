@@ -1,4 +1,5 @@
 import { getImage } from "astro:assets";
+import heroCredits from "../data/hero-credits.json";
 
 type ImageModule = { default: ImageMetadata };
 
@@ -20,12 +21,31 @@ function fileName(path: string): string {
   return path.split("/").pop() ?? path;
 }
 
+export type Credit = {
+  name: string;
+  handle: string;
+  instagram?: string;
+};
+
 export type HeroSource = {
   src: string;
   width: number;
   height: number;
   name: string;
+  credit: Credit;
 };
+
+type CreditFile = {
+  default: Credit;
+  byImage: Record<string, Credit>;
+};
+
+const credits = heroCredits as CreditFile;
+
+/** Per-file credit if one is listed, otherwise the club default. */
+function creditFor(file: string): Credit {
+  return credits.byImage?.[file] ?? credits.default;
+}
 
 /** Build-time optimised hero sources, ready to hand to the client picker. */
 export async function getHeroSources(width = 1600): Promise<HeroSource[]> {
@@ -34,11 +54,13 @@ export async function getHeroSources(width = 1600): Promise<HeroSource[]> {
   return Promise.all(
     entries.map(async ([path, mod]) => {
       const optimised = await getImage({ src: mod.default, width, format: "webp" });
+      const file = fileName(path);
       return {
         src: optimised.src,
         width: Number(optimised.attributes.width ?? width),
         height: Number(optimised.attributes.height ?? Math.round(width * 0.625)),
-        name: fileName(path),
+        name: file,
+        credit: creditFor(file),
       };
     }),
   );
