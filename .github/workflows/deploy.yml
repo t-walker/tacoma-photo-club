@@ -33,7 +33,7 @@ jobs:
           # Set repository variables SITE and BASE_PATH to override. For a
           # GitHub Pages project site use SITE=https://t-walker.github.io and
           # BASE_PATH=/tacoma-photo-club.
-          SITE: ${{ vars.SITE || 'https://tacomaphoto.club' }}
+          SITE: ${{ vars.SITE || 'https://www.tacomaphoto.club' }}
           BASE_PATH: ${{ vars.BASE_PATH || '/' }}
       - uses: actions/upload-pages-artifact@v3
         with:

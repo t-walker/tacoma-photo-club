@@ -104,10 +104,25 @@ point of the format — with type scaling via `clamp()`.
 
 ## Deploying
 
-`.github/workflows/deploy.yml` builds and publishes to GitHub Pages on every
-push to `main`, plus nightly so event ordering stays current.
+The site is hosted on GitHub Pages at **https://www.tacomaphoto.club**.
 
-For a project site (`user.github.io/tacoma-photo-club`), set repository
-variables `SITE=https://t-walker.github.io` and
-`BASE_PATH=/tacoma-photo-club`. For a custom domain, set `SITE` only and add a
-`public/CNAME` file.
+`.github/workflows/deploy.yml` builds and publishes on every push to `main`,
+plus nightly so event ordering stays current. `public/CNAME` holds the custom
+domain and ships with the build output, which keeps the Pages custom-domain
+setting pinned to `www.tacomaphoto.club`.
+
+DNS (Squarespace) needs both halves:
+
+| Type | Host | Value |
+| --- | --- | --- |
+| A | `@` | `185.199.108.153` |
+| A | `@` | `185.199.109.153` |
+| A | `@` | `185.199.110.153` |
+| A | `@` | `185.199.111.153` |
+| CNAME | `www` | `t-walker.github.io` |
+
+The apex A records let `tacomaphoto.club` redirect to the `www` host. Once the
+DNS check passes, tick **Enforce HTTPS** in Settings → Pages.
+
+To build for a project-site URL instead, set repository variables
+`SITE=https://t-walker.github.io` and `BASE_PATH=/tacoma-photo-club`.
