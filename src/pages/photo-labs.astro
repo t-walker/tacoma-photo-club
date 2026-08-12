@@ -14,7 +14,14 @@ type Lab = {
   notes?: string;
 };
 
-const entries = (labs as Lab[]).slice().sort((a, b) => a.name.localeCompare(b.name));
+const entries = (labs as Lab[])
+  .slice()
+  .sort((a, b) => {
+    // Labs you can walk into come first; mail-order-only ones trail behind.
+    const aLocal = a.dropOff.length > 0 ? 0 : 1;
+    const bLocal = b.dropOff.length > 0 ? 0 : 1;
+    return aLocal - bLocal || a.name.localeCompare(b.name);
+  });
 ---
 
 <Base
@@ -60,8 +67,12 @@ const entries = (labs as Lab[]).slice().sort((a, b) => a.name.localeCompare(b.na
                 </ul>
               </dd>
 
-              <dt>Drop off</dt>
-              <dd>{lab.dropOff.length ? lab.dropOff.join(" · ") : "None"}</dd>
+              {lab.dropOff.length ? (
+                <>
+                  <dt>Drop off</dt>
+                  <dd>{lab.dropOff.join(" · ")}</dd>
+                </>
+              ) : null}
 
               <dt>Mail in</dt>
               <dd>

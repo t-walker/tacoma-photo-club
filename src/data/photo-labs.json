@@ -1,57 +1,68 @@
 [
   {
-    "name": "Blue Moon Camera & Machine",
-    "location": "Portland, OR",
-    "capabilities": ["C-41", "B&W", "E-6", "120 / 220", "35mm", "Large format", "Scanning", "Hand prints"],
+    "name": "Moody's Film Lab",
+    "location": "Burien, WA",
+    "capabilities": ["C-41", "B&W", "E-6", "35mm", "120", "Scanning", "Prints"],
     "priceRange": "$$",
-    "dropOff": ["8417 N Lombard St, Portland"],
+    "dropOff": ["831 SW 149th St, Burien"],
     "mailIn": true,
-    "turnaround": "2-3 weeks",
-    "url": "https://www.bluemooncamera.com",
-    "notes": "Mail-in favourite for odd formats. Slow but meticulous."
+    "turnaround": "Call for current estimate",
+    "url": "https://www.moodysfilm.com",
+    "notes": "$17/roll develop + scan (C-41 and B&W), $23 for E-6; prints +$10. Scans delivered by WeTransfer. Mail-back of negatives costs extra — say so on your order. Tues-Sat."
+  },
+  {
+    "name": "We Develop Film (Photo HQ)",
+    "location": "Edmonds, WA",
+    "capabilities": ["C-41", "B&W", "E-6", "35mm", "120", "Scanning", "Prints", "Restoration"],
+    "priceRange": "$$",
+    "dropOff": ["186 Sunset Ave, Edmonds"],
+    "mailIn": true,
+    "turnaround": "Often next-day scans",
+    "url": "https://photo-hq.com",
+    "notes": "Fast, friendly counter. Also does prints, archiving and passport photos."
   },
   {
     "name": "Panda Lab",
     "location": "Seattle, WA",
-    "capabilities": ["C-41", "B&W", "E-6", "35mm", "120", "Scanning"],
-    "priceRange": "$$",
-    "dropOff": ["Seattle — see site for current counter"],
-    "mailIn": true,
-    "turnaround": "5-10 days",
-    "url": "https://www.thepandalab.com",
-    "notes": "Good scans, consistent colour."
-  },
-  {
-    "name": "Citizens Photo",
-    "location": "Portland, OR",
-    "capabilities": ["C-41", "B&W", "35mm", "120", "Scanning", "Prints"],
-    "priceRange": "$$",
-    "dropOff": ["3200 SE 20th Ave, Portland"],
-    "mailIn": true,
-    "turnaround": "1-2 weeks",
-    "url": "https://citizensphoto.com",
-    "notes": "Also a solid darkroom supply counter."
-  },
-  {
-    "name": "Kenmore Camera",
-    "location": "Kenmore, WA",
-    "capabilities": ["C-41", "B&W", "E-6", "35mm", "120", "Scanning", "Prints"],
+    "capabilities": ["C-41", "B&W", "E-6", "35mm", "120", "Scanning", "Darkroom prints", "Giclée"],
     "priceRange": "$$$",
-    "dropOff": ["6801 NE 181st St, Kenmore"],
-    "mailIn": true,
-    "turnaround": "1-2 weeks",
-    "url": "https://www.kenmorecamera.com",
-    "notes": "Full service counter; used gear worth a browse."
+    "dropOff": ["533 Warren Ave N, Seattle"],
+    "mailIn": false,
+    "turnaround": "Ask at drop-off",
+    "url": "https://www.pandalab.com",
+    "notes": "Long-running pro lab; archival darkroom printing and heirloom scanning. Call before shipping — mail-in is by arrangement only."
   },
   {
-    "name": "Walgreens (Tacoma locations)",
+    "name": "The Darkroom",
+    "location": "Mail order (California)",
+    "capabilities": ["C-41", "B&W", "E-6", "35mm", "120 / 220", "110 / 126 / APS", "Large format", "Disposables", "Scanning", "Prints"],
+    "priceRange": "$$",
+    "dropOff": [],
+    "mailIn": true,
+    "turnaround": "About a week plus shipping",
+    "url": "https://thedarkroom.com",
+    "notes": "Mail-only, with a free prepaid mailer. From $14/roll develop + scan, $11 develop-only; E-6 and odd formats +$6. No ECN-2."
+  },
+  {
+    "name": "Speedy's 1-Hour Photo",
     "location": "Tacoma, WA",
-    "capabilities": ["C-41", "35mm"],
+    "capabilities": ["C-41", "35mm", "Scanning", "Prints"],
     "priceRange": "$",
-    "dropOff": ["Various Tacoma stores"],
+    "dropOff": ["11702 Pacific Ave S, Tacoma"],
     "mailIn": false,
-    "turnaround": "1-2 weeks (sent out)",
-    "url": "",
-    "notes": "Cheap and cheerful. Negatives are not always returned — ask first."
+    "turnaround": "Same day on colour",
+    "url": "https://speedyephoto.com",
+    "notes": "The closest quick colour turnaround in town. Tues-Sat; call ahead for anything other than C-41 35mm."
+  },
+  {
+    "name": "Tacoma Photo Center",
+    "location": "Tacoma, WA",
+    "capabilities": ["C-41", "B&W", "E-6", "35mm", "120", "Scanning", "Public darkroom", "DIY processing"],
+    "priceRange": "$",
+    "dropOff": ["1720 S 7th St, Suite 103, Tacoma"],
+    "mailIn": false,
+    "turnaround": "Varies — volunteer run",
+    "url": "https://www.tacomaphotocenter.org",
+    "notes": "Nonprofit community darkroom. Have them process it, or book the darkroom and do it yourself. Open Thu-Sun 1-8pm; nothing new starts after 7."
   }
 ]
