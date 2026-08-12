@@ -1,0 +1,42 @@
+[
+  {
+    "id": "darkroom-night",
+    "title": "Darkroom Night",
+    "location": "Hilltop Community Darkroom, Tacoma",
+    "date": "2026-09-18T18:00:00-07:00",
+    "description": "Bring exposed black-and-white rolls. We develop, we hang, we argue about agitation.",
+    "flier": "darkroom-night.jpg"
+  },
+  {
+    "id": "sound-long-exposure",
+    "title": "Long Exposure on the Sound",
+    "location": "Ruston Way Waterfront",
+    "date": "2026-10-03T19:30:00-07:00",
+    "description": "Tripods out at dusk for ferry trails and mill lights. Cable releases encouraged.",
+    "flier": "sound-long-exposure.jpg"
+  },
+  {
+    "id": "print-critique",
+    "title": "Print Critique",
+    "location": "Tacoma Public Library, Olympic Room",
+    "date": "2026-08-27T18:30:00-07:00",
+    "description": "Bring three prints. Kind eyes, honest mouths. Everyone gets ten minutes.",
+    "flier": "print-critique.jpg"
+  },
+  {
+    "id": "film-swap",
+    "title": "Summer Film Swap",
+    "location": "Wright Park Bandstand",
+    "date": "2026-07-12T11:00:00-07:00",
+    "description": "Trade expired stock, spare bodies, and lens caps nobody can identify.",
+    "flier": "film-swap.jpg"
+  },
+  {
+    "id": "point-defiance-walk",
+    "title": "Point Defiance Photo Walk",
+    "location": "Point Defiance Park, Five Mile Drive",
+    "date": "2026-06-06T09:00:00-07:00",
+    "description": "A slow loop through the old growth. One roll, one lens, no hurry.",
+    "flier": "point-defiance-walk.jpg"
+  }
+]

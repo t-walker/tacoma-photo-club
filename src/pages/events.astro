@@ -1,0 +1,99 @@
+---
+import { Image } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import { getEvents } from "../lib/events";
+
+const events = getEvents();
+
+const stampLabels: Record<string, string> = {
+  next: "Next up",
+  upcoming: "Upcoming",
+  past: "Past",
+};
+---
+
+<Base title="Events" description="Photo walks, darkroom nights and critiques from the Tacoma Photo Club.">
+  <header class="page-head">
+    <p class="eyebrow">The calendar</p>
+    <h1 class="headline">Events</h1>
+    <p class="lede">
+      Fliers as we print them. The next event is boxed in red, the rest of the season sits bright,
+      and anything already in the can fades back — hover to bring it up again.
+    </p>
+  </header>
+
+  <hr class="rule" />
+
+  {
+    events.length === 0 ? (
+      <p class="empty">Nothing on the books just yet — check the Discord.</p>
+    ) : (
+      <ul class="events" id="events-grid">
+        {events.map((event) => (
+          <li class="event" data-status={event.status} data-date={event.date}>
+            <figure class="event__flier">
+              {event.flierImage ? (
+                <Image
+                  src={event.flierImage}
+                  alt={`Flier for ${event.title}`}
+                  widths={[320, 640, 960]}
+                  sizes="(min-width: 1080px) 240px, (min-width: 640px) 33vw, 90vw"
+                  loading="lazy"
+                />
+              ) : null}
+              <span class="event__stamp">{stampLabels[event.status]}</span>
+            </figure>
+            <h2 class="event__title">
+              {event.url ? (
+                <a href={event.url} target="_blank" rel="noopener noreferrer">
+                  {event.title}
+                </a>
+              ) : (
+                event.title
+              )}
+            </h2>
+            <p class="event__meta">
+              {event.dateLabel}
+              {event.timeLabel ? ` · ${event.timeLabel}` : ""}
+              <br />
+              {event.location}
+            </p>
+            <p class="event__desc">{event.description}</p>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  <script is:inline>
+    // The page is static, so an event can go stale between builds. Recompute the
+    // upcoming/next/past split and the display order against the visitor's clock.
+    (function () {
+      var grid = document.getElementById("events-grid");
+      if (!grid) return;
+
+      var labels = { next: "Next up", upcoming: "Upcoming", past: "Past" };
+      var now = Date.now();
+
+      var items = Array.prototype.slice.call(grid.children).map(function (li) {
+        var time = new Date(li.getAttribute("data-date") || "").getTime();
+        return { li: li, time: isNaN(time) ? now : time };
+      });
+
+      var upcoming = items
+        .filter(function (i) { return i.time >= now; })
+        .sort(function (a, b) { return a.time - b.time; });
+      var past = items
+        .filter(function (i) { return i.time < now; })
+        .sort(function (a, b) { return b.time - a.time; });
+
+      upcoming.concat(past).forEach(function (item, index) {
+        var status = item.time < now ? "past" : index === 0 ? "next" : "upcoming";
+        item.li.setAttribute("data-status", status);
+        var stamp = item.li.querySelector(".event__stamp");
+        if (stamp) stamp.textContent = labels[status];
+        grid.appendChild(item.li);
+      });
+    })();
+  </script>
+</Base>

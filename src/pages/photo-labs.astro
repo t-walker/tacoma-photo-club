@@ -1,0 +1,92 @@
+---
+import Base from "../layouts/Base.astro";
+import labs from "../data/photo-labs.json";
+
+type Lab = {
+  name: string;
+  location: string;
+  capabilities: string[];
+  priceRange: string;
+  dropOff: string[];
+  mailIn: boolean;
+  turnaround?: string;
+  url?: string;
+  notes?: string;
+};
+
+const entries = (labs as Lab[]).slice().sort((a, b) => a.name.localeCompare(b.name));
+---
+
+<Base
+  title="Photo Labs"
+  description="Where Tacoma Photo Club members get film developed and scanned — capabilities, prices, drop-off and mail-in."
+>
+  <header class="page-head">
+    <p class="eyebrow">Member directory</p>
+    <h1 class="headline">Photo Labs</h1>
+    <p class="lede">
+      Where we send our film. Prices are rough guides, not quotes — call ahead, and tell them the
+      club sent you. Missing a lab? Post it in the Discord and we will add it.
+    </p>
+  </header>
+
+  {
+    entries.length === 0 ? (
+      <p class="empty">No labs listed yet.</p>
+    ) : (
+      <ul class="labs">
+        {entries.map((lab) => (
+          <li class="lab">
+            <h2 class="lab__name">
+              {lab.url ? (
+                <a href={lab.url} target="_blank" rel="noopener noreferrer">
+                  {lab.name}
+                </a>
+              ) : (
+                lab.name
+              )}
+            </h2>
+            <p class="lab__where">
+              {lab.location} · {lab.priceRange}
+            </p>
+
+            <dl class="spec">
+              <dt>Process</dt>
+              <dd>
+                <ul class="tags">
+                  {lab.capabilities.map((capability) => (
+                    <li>{capability}</li>
+                  ))}
+                </ul>
+              </dd>
+
+              <dt>Drop off</dt>
+              <dd>{lab.dropOff.length ? lab.dropOff.join(" · ") : "None"}</dd>
+
+              <dt>Mail in</dt>
+              <dd>
+                <span class={`badge ${lab.mailIn ? "badge--yes" : "badge--no"}`}>
+                  {lab.mailIn ? "Accepted" : "Not accepted"}
+                </span>
+              </dd>
+
+              {lab.turnaround ? (
+                <>
+                  <dt>Turnaround</dt>
+                  <dd>{lab.turnaround}</dd>
+                </>
+              ) : null}
+
+              {lab.notes ? (
+                <>
+                  <dt>Notes</dt>
+                  <dd>{lab.notes}</dd>
+                </>
+              ) : null}
+            </dl>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</Base>

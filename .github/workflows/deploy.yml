@@ -1,0 +1,50 @@
+name: Deploy site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  # Statuses (next / upcoming / past) are also recomputed in the browser, but a
+  # nightly rebuild keeps the served HTML and its ordering fresh.
+  schedule:
+    - cron: "17 9 * * *"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+        env:
+          # Set repository variables SITE and BASE_PATH to override. For a
+          # GitHub Pages project site use SITE=https://t-walker.github.io and
+          # BASE_PATH=/tacoma-photo-club.
+          SITE: ${{ vars.SITE || 'https://tacomaphoto.club' }}
+          BASE_PATH: ${{ vars.BASE_PATH || '/' }}
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,108 @@
+---
+import Base from "../layouts/Base.astro";
+import Logo from "../components/Logo.astro";
+import site from "../data/site.json";
+import { getHeroSources } from "../lib/images";
+
+const heroSources = await getHeroSources();
+const fallbackTop = heroSources[0];
+const fallbackBottom = heroSources[1] ?? heroSources[0];
+---
+
+<Base>
+  <figure class="plate plate--hero">
+    <img
+      id="plate-top"
+      alt="A photograph by a Tacoma Photo Club member"
+      width={fallbackTop?.width}
+      height={fallbackTop?.height}
+      fetchpriority="high"
+    />
+    <noscript>
+      <img src={fallbackTop?.src} alt="A photograph by a Tacoma Photo Club member" />
+    </noscript>
+  </figure>
+
+  <p class="script script--right">
+    When the light goes flat over the Sound<br />
+    and the meter starts guessing, you shoot it anyway —<br />
+    that is the whole club, right there.
+  </p>
+
+  <h1 class="headline">{site.slogan}</h1>
+
+  <div class="copy">
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
+      labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+      laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+      voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+    </p>
+    <p>
+      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
+      id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
+      doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+      architecto beatae vitae dicta sunt explicabo.
+    </p>
+    <p>
+      Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
+      consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est,
+      qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius
+      modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
+    </p>
+    <p>
+      At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
+      voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+      cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi.
+    </p>
+  </div>
+
+  <div class="lockup">
+    <Logo class="lockup__logo" />
+  </div>
+
+  <p class="script script--left">
+    Meetings, walks and darkroom nights<br />
+    all year long — see the Events page.
+  </p>
+
+  <figure class="plate plate--second">
+    <img
+      id="plate-bottom"
+      alt="A photograph by a Tacoma Photo Club member"
+      width={fallbackBottom?.width}
+      height={fallbackBottom?.height}
+      loading="lazy"
+    />
+    <noscript>
+      <img src={fallbackBottom?.src} alt="A photograph by a Tacoma Photo Club member" />
+    </noscript>
+  </figure>
+
+  <script is:inline define:vars={{ heroSources }}>
+    // Two different photos, re-drawn on every page load. Sources come from
+    // src/images/hero/ at build time; the pick happens in the browser so a
+    // cached page still shuffles.
+    (function () {
+      var pool = heroSources || [];
+      if (pool.length === 0) return;
+
+      var first = Math.floor(Math.random() * pool.length);
+      var second =
+        pool.length > 1
+          ? (first + 1 + Math.floor(Math.random() * (pool.length - 1))) % pool.length
+          : first;
+
+      function apply(id, pick) {
+        var el = document.getElementById(id);
+        if (!el || !pick) return;
+        el.width = pick.width;
+        el.height = pick.height;
+        el.src = pick.src;
+      }
+
+      apply("plate-top", pool[first]);
+      apply("plate-bottom", pool[second]);
+    })();
+  </script>
+</Base>
