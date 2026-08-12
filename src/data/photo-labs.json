@@ -45,6 +45,19 @@
     "notes": "Long-running pro lab; archival darkroom printing and heirloom scanning. Call before shipping — mail-in is by arrangement only."
   },
   {
+    "name": "Ambient Film Lab",
+    "location": "Gaston, OR",
+    "milesFromTacoma": 175,
+    "capabilities": ["C-41", "B&W", "E-6", "35mm", "Half-frame", "120", "Scanning"],
+    "priceRange": "Ask",
+    "dropOff": "40080 SW Nelson Dr, Gaston — drop box only",
+    "dropBoxes": ["Chapters Books & Coffee — 701 E 1st St, Newberg"],
+    "mailIn": true,
+    "turnaround": "Newberg box is emptied Tuesday mornings",
+    "url": "https://www.ambientfilmlab.com",
+    "notes": "Small lab south-west of Portland, open since autumn 2025. Order and pay on the website first, then mail the film in or leave it in a drop box with the receipt. Scans come back by WeTransfer; returns ship USPS Ground Advantage at your cost. Price it out with the calculator on their products page, or call (503) 754-7899."
+  },
+  {
     "name": "The Darkroom",
     "location": "Mail order (California)",
     "milesFromTacoma": null,
