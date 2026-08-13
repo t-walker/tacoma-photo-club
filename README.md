@@ -61,6 +61,15 @@ disappears as soon as the first photo lands.
 Fliers are the same 4:5 ratio as an Instagram portrait post — export at
 **1080 × 1350**. Drop them in `src/images/events/` and reference the file name.
 
+### Event group shots — `src/images/groups/`
+
+The group photo from an event goes in `src/images/groups/`, named after the
+event's `id` — `bowling-meetup.jpg` for the event with `"id": "bowling-meetup"`.
+There is no JSON field to update; the name is the link. It gets laid over the
+foot of that event's flier, and events without one simply show the flier.
+
+Landscape, around 1600px wide.
+
 Ordering and highlighting are automatic:
 
 | State | Treatment |

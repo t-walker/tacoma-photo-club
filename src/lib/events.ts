@@ -1,5 +1,5 @@
 import eventsData from "../data/events.json";
-import { getEventFlier } from "./images";
+import { getEventFlier, getGroupPhoto } from "./images";
 
 export type EventStatus = "upcoming" | "past";
 
@@ -17,6 +17,8 @@ export type ClubEvent = {
 export type DecoratedEvent = ClubEvent & {
   status: EventStatus;
   flierImage?: ImageMetadata;
+  /** Group shot from the night, for the events that got one. */
+  groupImage?: ImageMetadata;
   dateLabel: string;
   timeLabel: string;
 };
@@ -48,6 +50,7 @@ export function getEvents(now: Date = new Date()): DecoratedEvent[] {
       ...event,
       status: when.getTime() < now.getTime() ? ("past" as const) : ("upcoming" as const),
       flierImage: getEventFlier(event.flier),
+      groupImage: getGroupPhoto(event.id),
       dateLabel: Number.isNaN(when.getTime()) ? event.date : dateFormatter.format(when),
       timeLabel: Number.isNaN(when.getTime()) ? "" : timeFormatter.format(when),
     }));

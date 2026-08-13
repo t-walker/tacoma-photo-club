@@ -83,6 +83,18 @@ const stampLabels: Record<string, string> = {
                   loading="lazy"
                 />
               ) : null}
+              {event.groupImage ? (
+                <figure class="event__group">
+                  <Image
+                    src={event.groupImage}
+                    alt={`Club members at ${event.title}`}
+                    widths={[320, 640]}
+                    sizes="(min-width: 1080px) 200px, 40vw"
+                    loading="lazy"
+                  />
+                  <figcaption class="event__group-tag">Us, there</figcaption>
+                </figure>
+              ) : null}
               <span class="event__stamp">{stampLabels[event.status]}</span>
             </figure>
             <h2 class="event__title">

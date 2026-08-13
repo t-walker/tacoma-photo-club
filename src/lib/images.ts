@@ -23,6 +23,16 @@ const shopModules = import.meta.glob<ImageModule>(
 );
 
 /**
+ * Group shots from past events, named after the event id they belong to.
+ * Plenty of events never got one, hence the lookup rather than a required
+ * field on the event itself.
+ */
+const groupModules = import.meta.glob<ImageModule>(
+  "../images/groups/*.{jpg,jpeg,png,webp,avif}",
+  { eager: true },
+);
+
+/**
  * Vertical member photos for the classified ad on inner pages. The hero plates
  * only suit landscape frames, so portrait work lives here instead.
  */
@@ -107,6 +117,12 @@ export async function getMemberPhotos(width = 640): Promise<HeroSource[]> {
 export function getEventFlier(flier: string | undefined): ImageMetadata | undefined {
   if (!flier) return undefined;
   const match = Object.entries(eventModules).find(([path]) => fileName(path) === flier);
+  return match?.[1].default;
+}
+
+/** The group shot for an event, if anyone remembered to take one. */
+export function getGroupPhoto(id: string): ImageMetadata | undefined {
+  const match = Object.entries(groupModules).find(([path]) => fileName(path) === `${id}.jpg`);
   return match?.[1].default;
 }
 
