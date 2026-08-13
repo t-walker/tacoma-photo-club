@@ -1,0 +1,106 @@
+---
+import { Image } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import site from "../data/site.json";
+import shop from "../data/shop.json";
+import { getShopImage } from "../lib/images";
+
+type ShopItem = {
+  id: string;
+  name: string;
+  blurb: string;
+  price: string;
+  /** available · sold-out · pre-order */
+  status: string;
+  image?: string;
+  url?: string;
+};
+
+const statusLabels: Record<string, string> = {
+  available: "Available",
+  "sold-out": "Sold out",
+  "pre-order": "Pre-order",
+};
+
+const items = (shop as ShopItem[]).map((item) => ({
+  ...item,
+  photo: getShopImage(item.image),
+  statusLabel: statusLabels[item.status] ?? item.status,
+}));
+---
+
+<Base
+  title="Shop"
+  description="Tacoma Photo Club merch. Nothing listed yet — check back soon."
+>
+  <header class="page-head">
+    <p class="eyebrow">Club merch</p>
+    <h1 class="headline">Shop</h1>
+    <p class="lede">
+      Club merch lives here. Nothing is listed yet — this page fills in as soon as there is
+      something to sell.
+    </p>
+  </header>
+
+  {
+    items.length === 0 ? (
+      <section class="restock">
+        <p class="restock__stamp">Coming soon</p>
+        <p class="restock__script">The shelf is empty!</p>
+        <p class="restock__note">
+          Nothing to sell just yet, but we are working on it. Check back later, or hang around the{" "}
+          <a href={site.discordUrl} target="_blank" rel="noopener noreferrer">
+            Discord
+          </a>{" "}
+          and we will holler the moment something lands.
+        </p>
+      </section>
+    ) : (
+      <ul class="goods">
+        {items.map((item) => (
+          <li class="good" data-status={item.status}>
+            <figure class="good__shot">
+              {item.photo ? (
+                <Image
+                  src={item.photo}
+                  alt={item.name}
+                  widths={[240, 480, 720]}
+                  sizes="(min-width: 1080px) 250px, (min-width: 640px) 33vw, 90vw"
+                  loading="lazy"
+                />
+              ) : (
+                <span class="good__placeholder" aria-hidden="true">
+                  {site.name}
+                </span>
+              )}
+              <span class="good__stamp">{item.statusLabel}</span>
+            </figure>
+            <h2 class="good__name">
+              {item.url ? (
+                <a href={item.url} target="_blank" rel="noopener noreferrer">
+                  {item.name}
+                </a>
+              ) : (
+                item.name
+              )}
+            </h2>
+            <p class="good__price">{item.price}</p>
+            <p class="good__blurb">{item.blurb}</p>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  {
+    items.length > 0 ? (
+      <p class="shop-note">
+        Want something in a size we do not have? Ask in the{" "}
+        <a href={site.discordUrl} target="_blank" rel="noopener noreferrer">
+          Discord
+        </a>{" "}
+        — we batch orders before every print run.
+      </p>
+    ) : null
+  }
+</Base>

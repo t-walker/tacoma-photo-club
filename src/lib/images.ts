@@ -17,6 +17,11 @@ const eventModules = import.meta.glob<ImageModule>(
   { eager: true },
 );
 
+const shopModules = import.meta.glob<ImageModule>(
+  "../images/shop/*.{jpg,jpeg,png,webp,avif}",
+  { eager: true },
+);
+
 function fileName(path: string): string {
   return path.split("/").pop() ?? path;
 }
@@ -70,5 +75,16 @@ export async function getHeroSources(width = 1600): Promise<HeroSource[]> {
 export function getEventFlier(flier: string | undefined): ImageMetadata | undefined {
   if (!flier) return undefined;
   const match = Object.entries(eventModules).find(([path]) => fileName(path) === flier);
+  return match?.[1].default;
+}
+
+/**
+ * Look up a shop photo by its file name as written in `shop.json`. Items
+ * without a matching file fall back to a typographic tile, so listings can go
+ * up before the product shots do.
+ */
+export function getShopImage(image: string | undefined): ImageMetadata | undefined {
+  if (!image) return undefined;
+  const match = Object.entries(shopModules).find(([path]) => fileName(path) === image);
   return match?.[1].default;
 }

@@ -108,5 +108,18 @@
     "turnaround": "Varies — volunteer run",
     "url": "https://www.tacomaphotocenter.org",
     "notes": "Nonprofit community darkroom. Have them process it, or book the darkroom and do it yourself. Open Thu-Sun 1-8pm; nothing new starts after 7."
+  },
+  {
+    "name": "Creativeroom Film Lab",
+    "location": "Walla Walla, WA",
+    "milesFromTacoma": 275,
+    "capabilities": ["C-41", "B&W", "35mm", "Half-frame", "Disposables", "Scanning", "Prints"],
+    "priceRange": "$$",
+    "dropOff": "306 Columbia St, Walla Walla",
+    "dropBoxes": ["The Showroom — 70 N Colville St, Walla Walla"],
+    "mailIn": true,
+    "turnaround": "3-7 business days once your rolls are logged in",
+    "url": "https://creativeroomfilmlab.com",
+    "notes": "Across the state, so mail-in for us: buy their prepaid label ($9.99, under a pound) or ship your own, and pick Return Shipping at checkout if you want the negatives back. Developed and scanned on Noritsu gear. Develop + scan from $15 for 35mm colour, $16 B&W, $14 disposables, $17 half-frame; Pro 4K and SuperPro TIFF scans, cut or uncut negatives and 4x6 prints all cost extra. No E-6 or 120 on the order form. All sales final."
   }
 ]

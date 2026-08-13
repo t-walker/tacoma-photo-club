@@ -1,12 +1,40 @@
 ---
+import { Image, getImage } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import Logo from "../components/Logo.astro";
 import site from "../data/site.json";
 import { getHeroSources } from "../lib/images";
+import { getEvents, getNextEvent } from "../lib/events";
 
 const heroSources = await getHeroSources();
 const fallbackTop = heroSources[0];
 const fallbackBottom = heroSources[1] ?? heroSources[0];
+
+const base = import.meta.env.BASE_URL;
+const eventsHref = `${base.replace(/\/$/, "")}/events/`;
+
+const events = getEvents();
+const nextEvent = getNextEvent(events);
+
+/**
+ * Every still-upcoming event, pre-rendered to a flat payload so the browser can
+ * re-pick the "next up" card against the visitor's clock — a page cached past
+ * the featured event's date would otherwise advertise something already shot.
+ */
+const upcomingCards = await Promise.all(
+  events
+    .filter((event) => event.status === "upcoming")
+    .map(async (event) => ({
+      id: event.id,
+      date: event.date,
+      title: event.title,
+      location: event.location,
+      meta: `${event.dateLabel}${event.timeLabel ? ` · ${event.timeLabel}` : ""}`,
+      src: event.flierImage
+        ? (await getImage({ src: event.flierImage, width: 540, format: "webp" })).src
+        : "",
+    })),
+);
 ---
 
 <Base>
@@ -34,47 +62,113 @@ const fallbackBottom = heroSources[1] ?? heroSources[0];
       }
     </figcaption>
   </figure>
-
-  <p class="script script--right">
-    When the light goes flat over the Sound<br />
-    and the meter starts guessing, you shoot it anyway —<br />
-    that is the whole club, right there.
-  </p>
-
+  <br />
   <h1 class="headline">{site.slogan}</h1>
 
-  <div class="copy">
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
-      labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-      laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-      voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-    </p>
-    <p>
-      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
-      id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-      doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-      architecto beatae vitae dicta sunt explicabo.
-    </p>
-    <p>
-      Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-      consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est,
-      qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius
-      modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
-    </p>
-    <p>
-      At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
-      voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
-      cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi.
-    </p>
+  <div class="copy-row">
+    <div class="copy">
+      <Logo class="copy__logo" />
+      <p>
+        Founded in 2023 by Matt Wade, Melissa Jividan, and Adam Ripp the Tacoma Photo club has been a cornerstone of the Tacoma arts scene.
+        We host free monthly meetups for anyone interested in attending! This club is open to photographers of all skill levels and backgrounds.
+        Our members range from nature enthusiasts to heavy-metal concert photographers. 
+      </p>
+      <p>
+        The photo club has many partners throughout the region including the Tacoma Photo Center and other film and photo clubs.
+        Anyone who is interested in starting with digital or film photography will find plenty of folks to talk to (...good luck getting them to stop!)
+      </p>
+      <p>
+        We invite you to connect with us on Instagram to stay up-to-date on our events and other events going on in the community.
+        On our Discord server folks share their work, trade and buy/sell gear, and share knowledge with the rest of the club.
+      </p>
+      <p>
+        Whether you have 1 camera or 100 or whether you've been in Washington for a few days or a few years we'd love to see you at our next meetup.
+      </p>
+
+      <p class="copy__cta">
+        You should follow us on <a href={site.instagram} target="_blank">Instagram</a> and join our <a href={site.discordUrl} target="_blank" rel="noopener noreferrer">Discord</a> server.
+      </p>
+    </div>
+
+    {
+      nextEvent ? (
+        <aside class="next-up" id="home-next-up" data-next-for={nextEvent.id}>
+          <p class="next-up__stamp">Next up</p>
+          <a class="next-up__link" href={eventsHref}>
+            <figure class="next-up__flier">
+              {nextEvent.flierImage ? (
+                <Image
+                  src={nextEvent.flierImage}
+                  alt={`Flier for ${nextEvent.title}`}
+                  widths={[320, 540]}
+                  sizes="(min-width: 720px) 300px, 90vw"
+                  loading="lazy"
+                />
+              ) : null}
+            </figure>
+            <h2 class="next-up__title">{nextEvent.title}</h2>
+          </a>
+          <p class="next-up__meta">
+            {nextEvent.dateLabel}
+            {nextEvent.timeLabel ? ` · ${nextEvent.timeLabel}` : ""}
+            <br />
+            {nextEvent.location}
+          </p>
+        </aside>
+      ) : null
+    }
   </div>
 
-  <div class="lockup">
-    <Logo class="lockup__logo" />
-  </div>
+  <script is:inline define:vars={{ upcomingCards }}>
+    // The page is static, so the flier baked in at build time can go stale.
+    // Re-pick the soonest event that is still ahead of the visitor's clock, and
+    // hide the column outright once nothing is upcoming.
+    (function () {
+      var box = document.getElementById("home-next-up");
+      if (!box) return;
+
+      var cards = upcomingCards || [];
+      var now = Date.now();
+      var soonest = null;
+
+      cards.forEach(function (card) {
+        var when = new Date(card.date).getTime();
+        if (isNaN(when) || when < now) return;
+        if (!soonest || when < new Date(soonest.date).getTime()) soonest = card;
+      });
+
+      if (!soonest) {
+        box.hidden = true;
+        return;
+      }
+
+      if (box.getAttribute("data-next-for") === soonest.id) return;
+
+      var img = box.querySelector(".next-up__flier img");
+      if (img && soonest.src) {
+        img.removeAttribute("srcset");
+        img.removeAttribute("sizes");
+        img.src = soonest.src;
+        img.alt = "Flier for " + soonest.title;
+      }
+
+      var title = box.querySelector(".next-up__title");
+      if (title) title.textContent = soonest.title;
+
+      var meta = box.querySelector(".next-up__meta");
+      if (meta) {
+        meta.textContent = "";
+        meta.appendChild(document.createTextNode(soonest.meta));
+        meta.appendChild(document.createElement("br"));
+        meta.appendChild(document.createTextNode(soonest.location));
+      }
+
+      box.setAttribute("data-next-for", soonest.id);
+    })();
+  </script>
 
   <p class="script script--left">
-    Meetings, walks and darkroom nights<br />
+    Photo walks, meetups & side-quests<br />
     all year long — see the Events page.
   </p>
 
@@ -103,8 +197,7 @@ const fallbackBottom = heroSources[1] ?? heroSources[0];
     </figcaption>
   </figure>
 
-  <script is:inline define:vars={{ heroSources }}>
-    // Two different photos, re-drawn on every page load. Sources come from
+  <script is:inline define:vars={{ heroSources }}>    // Two different photos, re-drawn on every page load. Sources come from
     // src/images/hero/ at build time; the pick happens in the browser so a
     // cached page still shuffles.
     (function () {

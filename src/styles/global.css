@@ -278,20 +278,104 @@ a.credit__handle:focus-visible {
   font-weight: 700;
 }
 
-/* ---------- footer / logo lockup ---------- */
-
-.lockup {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-end;
-  gap: clamp(0.75rem, 3vw, 1.75rem);
-  margin-top: clamp(1rem, 3vw, 1.75rem);
+.copy__cta {
+  break-inside: avoid;
 }
 
-.lockup__logo {
-  width: clamp(150px, 34vw, 240px);
+/* ---------- home: body copy + "next up" as a third column ---------- */
+
+/* Three equal tracks: the copy spans two of them and splits that span with the
+   same gap again, so the flier column measures exactly one text column wide. */
+.copy-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1rem, 3.5vw, 2.5rem);
+  align-items: start;
+}
+
+@media (min-width: 720px) {
+  .copy-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .copy-row .copy {
+    grid-column: span 2;
+  }
+}
+
+.next-up[hidden] {
+  display: none;
+}
+
+.next-up__stamp {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.56rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  background: var(--accent);
+  color: var(--paper);
+  padding: 0.18rem 0.5rem;
+  margin: 0 0 0.5rem;
+}
+
+.next-up__link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.next-up__flier {
+  margin: 0;
+  overflow: hidden;
+  outline: var(--rule-thin) solid var(--navy);
+  outline-offset: -1px;
+  background: var(--paper-edge);
+}
+
+.next-up__flier img {
+  display: block;
+  width: 100%;
   height: auto;
+}
+
+.next-up__link:hover .next-up__flier,
+.next-up__link:focus-visible .next-up__flier {
+  outline-color: var(--accent);
+}
+
+.next-up__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.92rem;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--navy);
+  margin: 0.45rem 0 0.2rem;
+}
+
+.next-up__meta {
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* ---------- logo set into the copy ---------- */
+
+/* Floated into the first text column so the copy wraps around it, the way an
+   inline image sits in a word processor. The logo PNG carries ~73px of
+   transparent edge on its 2400px canvas, so pull that back out on the left to
+   keep the artwork flush with the column. */
+.copy__logo {
+  --logo-width: clamp(96px, 12vw, 140px);
+  float: left;
+  width: var(--logo-width);
+  height: auto;
+  margin: 0.2rem 0.7rem 0.25rem calc(var(--logo-width) * -73 / 2400);
 }
 
 .colophon {
@@ -513,7 +597,6 @@ a.credit__handle:focus-visible {
 }
 
 /* ---------- photo labs ---------- */
-
 .labs {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
@@ -641,4 +724,147 @@ a.credit__handle:focus-visible {
   * {
     transition: none !important;
   }
+}
+
+/* ---------- shop ---------- */
+
+.goods {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+  gap: clamp(1rem, 3vw, 2rem);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.good__shot {
+  position: relative;
+  margin: 0 0 0.55rem;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  outline: var(--rule-thin) solid var(--navy);
+  outline-offset: -1px;
+  background: var(--paper-edge);
+  display: grid;
+  place-items: center;
+}
+
+.good__shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Listings can go up before the product shot exists. */
+.good__placeholder {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--ink-faint);
+  padding: 0 1rem;
+}
+
+.good__stamp {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: var(--navy);
+  color: var(--paper);
+  padding: 0.2rem 0.5rem;
+}
+
+.good[data-status="sold-out"] .good__stamp {
+  background: var(--ink-faint);
+}
+
+.good[data-status="pre-order"] .good__stamp {
+  background: var(--accent);
+}
+
+.good[data-status="sold-out"] .good__shot img {
+  filter: saturate(0.15) opacity(0.65);
+}
+
+.good__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+  margin: 0 0 0.15rem;
+}
+
+.good__name a {
+  text-decoration: none;
+  border-bottom: 2px solid var(--accent);
+}
+
+.good__price {
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 0.4rem;
+}
+
+.good__blurb {
+  font-size: 0.82rem;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.shop-note {
+  margin-top: clamp(1.5rem, 5vw, 2.5rem);
+  padding-top: 0.75rem;
+  border-top: var(--rule-thin) solid var(--navy);
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+/* Empty shop: a stamped "out of stock" card rather than a bare line of text,
+   so the page still looks designed when there is nothing to sell. */
+.restock {
+  border-top: var(--rule-thick) solid var(--accent);
+  border-bottom: var(--rule-thick) solid var(--accent);
+  padding: clamp(1.5rem, 5vw, 2.75rem) 0;
+  text-align: center;
+}
+
+.restock__stamp {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  background: var(--accent);
+  color: var(--paper);
+  padding: 0.25rem 0.7rem;
+  margin: 0;
+  transform: rotate(-2deg);
+}
+
+.restock__script {
+  font-family: var(--font-script);
+  font-size: clamp(2rem, 1.4rem + 3.5vw, 3.4rem);
+  line-height: 1;
+  color: var(--navy);
+  margin: 0.6rem 0 0.5rem;
+}
+
+.restock__note {
+  max-width: 42ch;
+  margin: 0 auto;
+  font-size: clamp(0.85rem, 0.8rem + 0.3vw, 1rem);
+  line-height: 1.5;
+  color: var(--ink-soft);
 }
