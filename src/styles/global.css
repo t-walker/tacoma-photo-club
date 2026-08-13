@@ -932,6 +932,7 @@ a.credit__handle:focus-visible {
   border-top: var(--rule-thick) dashed var(--navy);
   border-bottom: var(--rule-thick) dashed var(--navy);
   padding: clamp(0.85rem, 2.2vw, 1.15rem) 0;
+  margin-top: clamp(1.25rem, 3.5vw, 2.25rem);
   margin-bottom: clamp(1rem, 3vw, 1.75rem);
 }
 
