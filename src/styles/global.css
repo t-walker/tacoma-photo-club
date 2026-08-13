@@ -626,8 +626,8 @@ a.credit__handle:focus-visible {
 }
 
 /* The group shot from the night, laid over the foot of the flier like a print
-   dropped on top of it. Sits above the muted/colour swap, so it stays legible
-   whether or not the card is hovered. */
+   dropped on top of it. Hidden until the card is hovered, so the fliers still
+   read as a clean grid at rest. */
 .event__group {
   position: absolute;
   left: 8%;
@@ -638,7 +638,25 @@ a.credit__handle:focus-visible {
   border: 4px solid var(--paper);
   outline: var(--rule-thin) solid var(--navy);
   box-shadow: 0 6px 14px rgba(16, 36, 58, 0.35);
-  transition: transform 220ms ease, filter 220ms ease;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  cursor: pointer;
+  transition: opacity 180ms ease, transform 220ms ease, filter 220ms ease;
+}
+
+.event:hover .event__group,
+.event:focus-within .event__group {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Clicked away. Stays gone until the pointer leaves and comes back. */
+.event[data-group-dismissed] .event__group {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
 }
 
 .event__group img {
@@ -673,19 +691,15 @@ a.credit__handle:focus-visible {
   filter: none;
 }
 
-/* Lift it slightly on hover, so it reads as a separate print. */
-.event:hover .event__group,
-.event:focus-within .event__group {
-  transform: translateY(-4px);
-}
-
 @media (prefers-reduced-motion: reduce) {
   .event__group {
-    transition: none;
+    transition: opacity 180ms ease;
+    transform: none;
   }
 
   .event:hover .event__group,
-  .event:focus-within .event__group {
+  .event:focus-within .event__group,
+  .event[data-group-dismissed] .event__group {
     transform: none;
   }
 }

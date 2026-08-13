@@ -159,7 +159,7 @@ const stampLabels: Record<string, string> = {
       if (!inner) return;
 
       var flier = inner.querySelector(".featured__flier");
-      var sourceImg = soonest.querySelector("img");
+      var sourceImg = soonest.querySelector(".event__flier > img");
       if (flier) {
         flier.innerHTML = "";
         if (sourceImg) {
@@ -183,6 +183,40 @@ const stampLabels: Record<string, string> = {
 
       featured.setAttribute("data-featured-for", soonest.getAttribute("data-id") || "");
       featured.hidden = false;
+    })();
+  </script>
+
+  <script is:inline>
+    // Group shots reveal on hover. Clicking one dismisses it so the flier
+    // underneath is readable, and leaving the card arms it again.
+    (function () {
+      var grid = document.getElementById("events-grid");
+      if (!grid) return;
+
+      grid.addEventListener("click", function (event) {
+        var group = event.target.closest(".event__group");
+        if (!group) return;
+
+        var card = group.closest(".event");
+        if (!card) return;
+
+        event.preventDefault();
+        card.setAttribute("data-group-dismissed", "");
+      });
+
+      // Bound per card rather than delegated: mouseleave does not bubble, and
+      // capturing it on the grid would also fire for the card's own children.
+      Array.prototype.forEach.call(grid.querySelectorAll(".event"), function (card) {
+        card.addEventListener("mouseleave", function () {
+          card.removeAttribute("data-group-dismissed");
+        });
+
+        card.addEventListener("focusout", function (event) {
+          if (!card.contains(event.relatedTarget)) {
+            card.removeAttribute("data-group-dismissed");
+          }
+        });
+      });
     })();
   </script>
 </Base>
