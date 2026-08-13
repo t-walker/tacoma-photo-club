@@ -52,8 +52,8 @@ Ordering and highlighting are automatic:
 | State | Treatment |
 | --- | --- |
 | Next event | Red outline, red `NEXT UP` stamp, sorted first |
-| Later upcoming events | Full colour, black `UPCOMING` stamp |
-| Past events | Desaturated and faded, returns to full colour on hover/focus |
+| Later upcoming events | Full color, black `UPCOMING` stamp |
+| Past events | Desaturated and faded, returns to full color on hover/focus |
 
 Statuses are computed at build time **and** recomputed in the browser against
 the visitor's clock, so the page never shows a stale "upcoming" event even if
@@ -100,7 +100,7 @@ Delete them once real photos are in.
 
 The page is a single centred "sheet" (`--sheet-width`, 1080px). On a phone it
 fills the screen edge to edge; on a large monitor it stretches to that width and
-stays centred on a darker desk-coloured background, so the ad composition holds
+stays centred on a darker desk-colored background, so the ad composition holds
 at every size. The two text columns stay two columns at all widths — that's the
 point of the format — with type scaling via `clamp()`.
 
