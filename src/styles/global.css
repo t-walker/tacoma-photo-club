@@ -438,8 +438,26 @@ a.credit__handle:focus-visible {
 
 .page-head {
   display: grid;
-  gap: 0.25rem;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.25rem clamp(0.9rem, 2.5vw, 1.5rem);
+  align-items: start;
   margin-bottom: clamp(1rem, 3vw, 1.75rem);
+}
+
+/* A vertical member photo tucked beside the title, classified-ad style. */
+.page-head:has(.page-head__photo) {
+  grid-template-columns: minmax(0, 1fr) clamp(96px, 15%, 150px);
+}
+
+.page-head__text {
+  display: grid;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.page-head__photo {
+  grid-row: 1 / -1;
+  grid-column: 2;
 }
 
 .page-head .headline {
@@ -958,7 +976,7 @@ a.credit__handle:focus-visible {
   color: var(--accent);
 }
 
-.classified__photo {
+.member-photo {
   position: relative;
   margin: 0;
   border: var(--rule-thin) solid var(--ink);
@@ -966,7 +984,7 @@ a.credit__handle:focus-visible {
   line-height: 0;
 }
 
-.classified__photo img {
+.member-photo img {
   display: block;
   width: 100%;
   height: auto;
@@ -979,7 +997,17 @@ a.credit__handle:focus-visible {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .classified__photo {
-    max-width: 190px;
+  .page-head:has(.page-head__photo) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .page-head__photo {
+    grid-row: auto;
+    grid-column: 1;
+  }
+
+  .classified__photo,
+  .page-head__photo {
+    max-width: 170px;
   }
 }

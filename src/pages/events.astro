@@ -1,7 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
-import JoinAd from "../components/JoinAd.astro";
+import MemberPhoto from "../components/MemberPhoto.astro";
 import { getEvents, getNextEvent } from "../lib/events";
 
 const events = getEvents();
@@ -15,14 +15,15 @@ const stampLabels: Record<string, string> = {
 
 <Base title="Events" description="Photo walks, darkroom nights and critiques from the Tacoma Photo Club.">
   <header class="page-head">
-    <p class="eyebrow">The calendar</p>
-    <h1 class="headline">Events</h1>
-    <p class="lede">
-      Come hang out with us at one of our upcoming events and see what our members have loved in the past!
-    </p>
+    <div class="page-head__text">
+      <p class="eyebrow">The calendar</p>
+      <h1 class="headline">Events</h1>
+      <p class="lede">
+        Come hang out with us at one of our upcoming events and see what our members have loved in the past!
+      </p>
+    </div>
+    <MemberPhoto id="events-photo" class="page-head__photo" />
   </header>
-
-  <JoinAd />
 
   {
     nextEvent ? (

@@ -1,20 +1,16 @@
 ---
 import site from "../data/site.json";
+import MemberPhoto from "./MemberPhoto.astro";
 import { getMemberPhotos } from "../lib/images";
 
 const base = import.meta.env.BASE_URL;
 const withBase = (path: string) => `${base.replace(/\/$/, "")}/${path.replace(/^\//, "")}`;
 
-/**
- * Portrait member work, rotated in the browser the same way the home page
- * plates are, so a cached page still shuffles. Falls back to a text-only ad
- * while `src/images/members/` is empty.
- */
-const photos = await getMemberPhotos();
-const first = photos[0];
+/** Only widen into two columns once there is actually a photo to show. */
+const hasPhoto = (await getMemberPhotos()).length > 0;
 ---
 
-<aside class="classified" data-has-photo={photos.length > 0 ? "" : undefined}>
+<aside class="classified" data-has-photo={hasPhoto ? "" : undefined}>
   <div class="classified__body">
     <p class="classified__kicker">Classified</p>
     <h2 class="classified__title">Join the club!</h2>
@@ -39,70 +35,5 @@ const first = photos[0];
     </ul>
   </div>
 
-  {
-    first ? (
-      <figure class="classified__photo">
-        <img
-          id="classified-photo"
-          src={first.src}
-          width={first.width}
-          height={first.height}
-          alt={`A photograph by ${first.credit.name}`}
-          loading="lazy"
-        />
-        <figcaption class="credit" id="classified-credit">
-          <span class="credit__name">{first.credit.name}</span>
-          {first.credit.instagram ? (
-            <a
-              class="credit__handle"
-              href={first.credit.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              @{first.credit.handle}
-            </a>
-          ) : (
-            <span class="credit__handle">@{first.credit.handle}</span>
-          )}
-        </figcaption>
-      </figure>
-    ) : null
-  }
+  <MemberPhoto id="classified-photo" class="classified__photo" />
 </aside>
-
-{
-  photos.length > 1 ? (
-    <script is:inline define:vars={{ photos }}>
-      (function () {
-        var img = document.getElementById("classified-photo");
-        var box = document.getElementById("classified-credit");
-        if (!img || !box) return;
-
-        var pick = photos[Math.floor(Math.random() * photos.length)];
-        if (!pick) return;
-
-        img.src = pick.src;
-        img.width = pick.width;
-        img.height = pick.height;
-        img.alt = "A photograph by " + pick.credit.name;
-
-        box.querySelector(".credit__name").textContent = pick.credit.name;
-
-        var handle = box.querySelector(".credit__handle");
-        var wantsLink = Boolean(pick.credit.instagram);
-        if (wantsLink !== (handle.tagName === "A")) {
-          var next = document.createElement(wantsLink ? "a" : "span");
-          next.className = "credit__handle";
-          handle.replaceWith(next);
-          handle = next;
-        }
-        if (wantsLink) {
-          handle.href = pick.credit.instagram;
-          handle.target = "_blank";
-          handle.rel = "noopener noreferrer";
-        }
-        handle.textContent = "@" + pick.credit.handle;
-      })();
-    </script>
-  ) : null
-}

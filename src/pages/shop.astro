@@ -1,7 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
-import JoinAd from "../components/JoinAd.astro";
+import MemberPhoto from "../components/MemberPhoto.astro";
 import site from "../data/site.json";
 import shop from "../data/shop.json";
 import { getShopImage } from "../lib/images";
@@ -35,15 +35,16 @@ const items = (shop as ShopItem[]).map((item) => ({
   description="Tacoma Photo Club merch. Nothing listed yet — check back soon."
 >
   <header class="page-head">
-    <p class="eyebrow">Club merch</p>
-    <h1 class="headline">Shop</h1>
-    <p class="lede">
-      Club merch lives here. Nothing is listed yet — this page fills in as soon as there is
-      something to sell.
-    </p>
+    <div class="page-head__text">
+      <p class="eyebrow">Club merch</p>
+      <h1 class="headline">Shop</h1>
+      <p class="lede">
+        Club merch lives here. Nothing is listed yet — this page fills in as soon as there is
+        something to sell.
+      </p>
+    </div>
+    <MemberPhoto id="shop-photo" class="page-head__photo" />
   </header>
-
-  <JoinAd />
 
   {
     items.length === 0 ? (

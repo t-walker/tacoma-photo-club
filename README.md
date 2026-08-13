@@ -33,9 +33,11 @@ at build time.
 ### Member photos — `src/images/members/`
 
 The home page plates only suit landscape frames, so **vertical** member work
-goes in `src/images/members/` instead. It feeds the "Join the club!" classified
-ad that runs under the heading on Events, Photo Labs and Shop, and one is picked
-at random on every page load.
+goes in `src/images/members/` instead. It shows up in two places, with a fresh
+random pick on every page load:
+
+- the "Join the club!" classified ad below the home page copy, and
+- alongside the title on Events, Photo Labs and Shop.
 
 Portrait images around 640px wide are plenty. Credits come from
 `src/data/hero-credits.json`, exactly like the hero photos. While the folder is

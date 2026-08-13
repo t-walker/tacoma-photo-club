@@ -1,0 +1,88 @@
+---
+import { getMemberPhotos } from "../lib/images";
+
+interface Props {
+  /** Unique per usage — the shuffle script keys off it. */
+  id: string;
+  class?: string;
+}
+
+const { id, class: className } = Astro.props;
+
+/**
+ * A vertical member photo with its credit tag. Picked again in the browser on
+ * every load, the same way the home page plates work, so a cached page still
+ * shuffles. Renders nothing while `src/images/members/` is empty, which lets
+ * callers lay out around an absent photo.
+ */
+const photos = await getMemberPhotos();
+const first = photos[0];
+const creditId = `${id}-credit`;
+---
+
+{
+  first ? (
+    <figure class:list={["member-photo", className]}>
+      <img
+        id={id}
+        src={first.src}
+        width={first.width}
+        height={first.height}
+        alt={`A photograph by ${first.credit.name}`}
+        loading="lazy"
+      />
+      <figcaption class="credit" id={creditId}>
+        <span class="credit__name">{first.credit.name}</span>
+        {first.credit.instagram ? (
+          <a
+            class="credit__handle"
+            href={first.credit.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            @{first.credit.handle}
+          </a>
+        ) : (
+          <span class="credit__handle">@{first.credit.handle}</span>
+        )}
+      </figcaption>
+    </figure>
+  ) : null
+}
+
+{
+  photos.length > 1 ? (
+    <script is:inline define:vars={{ photos, id, creditId }}>
+      (function () {
+        var img = document.getElementById(id);
+        var box = document.getElementById(creditId);
+        if (!img || !box) return;
+
+        var pick = photos[Math.floor(Math.random() * photos.length)];
+        if (!pick) return;
+
+        img.src = pick.src;
+        img.width = pick.width;
+        img.height = pick.height;
+        img.alt = "A photograph by " + pick.credit.name;
+
+        box.querySelector(".credit__name").textContent = pick.credit.name;
+
+        var handle = box.querySelector(".credit__handle");
+        var wantsLink = Boolean(pick.credit.instagram);
+        if (wantsLink !== (handle.tagName === "A")) {
+          var next = document.createElement(wantsLink ? "a" : "span");
+          next.className = "credit__handle";
+          handle.replaceWith(next);
+          handle = next;
+        }
+        if (wantsLink) {
+          handle.href = pick.credit.instagram;
+          handle.target = "_blank";
+          handle.rel = "noopener noreferrer";
+        }
+        handle.textContent = "@" + pick.credit.handle;
+      })();
+    </script>
+  ) : null
+}

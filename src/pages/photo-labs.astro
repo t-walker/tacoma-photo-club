@@ -1,6 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
-import JoinAd from "../components/JoinAd.astro";
+import MemberPhoto from "../components/MemberPhoto.astro";
 import labs from "../data/photo-labs.json";
 
 type Lab = {
@@ -32,16 +32,17 @@ const entries = (labs as Lab[])
   description="Where Tacoma Photo Club members get film developed and scanned — capabilities, prices, drop-off and mail-in."
 >
   <header class="page-head">
-    <p class="eyebrow">Friends of Ours</p>
-    <h1 class="headline">Photo Labs</h1>
-    <p class="lede">
-      Where we send our film, nearest to Tacoma first. Prices are rough guides, not quotes — call
-      ahead, and tell them the club sent you. Missing a lab? Post it in the Discord and we will add
-      it.
-    </p>
+    <div class="page-head__text">
+      <p class="eyebrow">Friends of Ours</p>
+      <h1 class="headline">Photo Labs</h1>
+      <p class="lede">
+        Where we send our film, nearest to Tacoma first. Prices are rough guides, not quotes — call
+        ahead, and tell them the club sent you. Missing a lab? Post it in the Discord and we will add
+        it.
+      </p>
+    </div>
+    <MemberPhoto id="labs-photo" class="page-head__photo" />
   </header>
-
-  <JoinAd />
 
   {
     entries.length === 0 ? (

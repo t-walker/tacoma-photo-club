@@ -2,6 +2,7 @@
 import { Image, getImage } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import Logo from "../components/Logo.astro";
+import JoinAd from "../components/JoinAd.astro";
 import site from "../data/site.json";
 import { getHeroSources } from "../lib/images";
 import { getEvents, getNextEvent } from "../lib/events";
@@ -118,6 +119,8 @@ const upcomingCards = await Promise.all(
       ) : null
     }
   </div>
+
+  <JoinAd />
 
   <script is:inline define:vars={{ upcomingCards }}>
     // The page is static, so the flier baked in at build time can go stale.
