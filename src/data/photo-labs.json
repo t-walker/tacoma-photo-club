@@ -16,7 +16,7 @@
     "mailIn": true,
     "turnaround": "Call for current estimate",
     "url": "https://www.moodysfilm.com",
-    "notes": "Envelopes and a dropbox are provided at every location — grab a coffee or a record while you drop. $17/roll develop + scan (C-41 and B&W), $23 for E-6; prints +$10. Scans arrive by WeTransfer. Negatives wait two months at the lab, or pay $7 to have them mailed back."
+    "notes": "Drop your roll where you buy records or coffee. $17/roll develop + scan, $23 for E-6; negatives held two months, or $7 to mail them back."
   },
   {
     "name": "We Develop Film (Photo HQ)",
@@ -29,7 +29,7 @@
     "mailIn": true,
     "turnaround": "Often next-day scans",
     "url": "https://photo-hq.com",
-    "notes": "Fast, friendly counter. Also does prints, archiving and passport photos."
+    "notes": "Fast, friendly counter that often turns scans around next day. Prints, archiving and passport photos too."
   },
   {
     "name": "Panda Lab",
@@ -42,7 +42,7 @@
     "mailIn": false,
     "turnaround": "Ask at drop-off",
     "url": "https://www.pandalab.com",
-    "notes": "Long-running pro lab; archival darkroom printing and heirloom scanning. Call before shipping — mail-in is by arrangement only."
+    "notes": "Long-running pro lab with archival darkroom printing and heirloom scanning. Mail-in is by arrangement only, so call before you ship."
   },
   {
     "name": "Shy Film Lab",
@@ -55,7 +55,7 @@
     "mailIn": true,
     "turnaround": "Ask at drop-off",
     "url": "https://www.shyfilmclub.com/lab",
-    "notes": "The lab arm of Shy Film Club — a community for film photographers who would rather skip the big photowalk. No E-6. Develop-only from $8, develop + scan from $20; push/pull to ±3 stops, high-res, TIFF, full-border and half-frame scans cost extra. Scans arrive as a Google Drive link — download within 30 days. Negatives ship back, get picked up locally, or can be tossed. Mail to PO Box 1364, Beaverton, OR 97075."
+    "notes": "The lab arm of Shy Film Club, for photographers who would rather skip the big photowalk. Develop-only from $8, develop + scan from $20. No E-6."
   },
   {
     "name": "Ambient Film Lab",
@@ -68,7 +68,7 @@
     "mailIn": true,
     "turnaround": "Newberg box is emptied Tuesday mornings",
     "url": "https://www.ambientfilmlab.com",
-    "notes": "Small lab south-west of Portland, open since autumn 2025. Order and pay on the website first, then mail the film in or leave it in a drop box with the receipt. Scans come back by WeTransfer; returns ship USPS Ground Advantage at your cost. Price it out with the calculator on their products page, or call (503) 754-7899."
+    "notes": "Small lab south-west of Portland, open since autumn 2025. Order and pay online first, then mail in or use a drop box; returns ship at your cost."
   },
   {
     "name": "The Darkroom",
@@ -120,6 +120,6 @@
     "mailIn": true,
     "turnaround": "3-7 business days once your rolls are logged in",
     "url": "https://creativeroomfilmlab.com",
-    "notes": "Across the state, so mail-in for us: buy their prepaid label ($9.99, under a pound) or ship your own, and pick Return Shipping at checkout if you want the negatives back. Developed and scanned on Noritsu gear. Develop + scan from $15 for 35mm colour, $16 B&W, $14 disposables, $17 half-frame; Pro 4K and SuperPro TIFF scans, cut or uncut negatives and 4x6 prints all cost extra. No E-6 or 120 on the order form. All sales final."
+    "notes": "Mail-in from our end, developed and scanned on Noritsu gear. From $15/roll for 35mm colour; 4K scans, prints and negatives back cost extra. No E-6 or 120."
   }
 ]
