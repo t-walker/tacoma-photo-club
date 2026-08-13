@@ -1,5 +1,5 @@
 ---
-import { Image } from "astro:assets";
+import { Image, getImage } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import MemberPhoto from "../components/MemberPhoto.astro";
 import { getEvents, getNextEvent } from "../lib/events";
@@ -11,6 +11,24 @@ const stampLabels: Record<string, string> = {
   upcoming: "Upcoming",
   past: "Past",
 };
+
+/**
+ * Full-size group shots for the lightbox. Optimised here at build time so the
+ * viewer swaps in a ready URL rather than blowing the thumbnail up.
+ */
+const groupFulls = new Map(
+  await Promise.all(
+    events
+      .filter((event) => event.groupImage)
+      .map(
+        async (event) =>
+          [
+            event.id,
+            await getImage({ src: event.groupImage!, width: 1800, format: "webp" }),
+          ] as const,
+      ),
+  ),
+);
 ---
 
 <Base title="Events" description="Photo walks, darkroom nights and critiques from the Tacoma Photo Club.">
@@ -84,7 +102,13 @@ const stampLabels: Record<string, string> = {
                 />
               ) : null}
               {event.groupImage ? (
-                <figure class="event__group">
+                <button
+                  class="event__group"
+                  type="button"
+                  data-full={groupFulls.get(event.id)?.src}
+                  data-caption={`${event.title} — ${event.dateLabel}`}
+                  aria-label={`See the group photo from ${event.title} full size`}
+                >
                   <Image
                     src={event.groupImage}
                     alt={`Club members at ${event.title}`}
@@ -92,8 +116,7 @@ const stampLabels: Record<string, string> = {
                     sizes="(min-width: 1080px) 200px, 40vw"
                     loading="lazy"
                   />
-                  <figcaption class="event__group-tag">Us, there</figcaption>
-                </figure>
+                </button>
               ) : null}
               <span class="event__stamp">{stampLabels[event.status]}</span>
             </figure>
@@ -186,26 +209,52 @@ const stampLabels: Record<string, string> = {
     })();
   </script>
 
+  <dialog class="lightbox" id="lightbox">
+    <form method="dialog">
+      <button class="lightbox__close" aria-label="Close">&times;</button>
+    </form>
+    <img class="lightbox__img" id="lightbox-img" alt="" />
+    <p class="lightbox__caption" id="lightbox-caption"></p>
+  </dialog>
+
   <script is:inline>
-    // Group shots reveal on hover. Clicking one dismisses it so the flier
-    // underneath is readable, and leaving the card arms it again.
+    // Group shots reveal on hover; clicking one opens it full size. <dialog>
+    // handles Esc, focus trapping and returning focus for us.
     (function () {
       var grid = document.getElementById("events-grid");
-      if (!grid) return;
+      var box = document.getElementById("lightbox");
+      var img = document.getElementById("lightbox-img");
+      var caption = document.getElementById("lightbox-caption");
+      if (!grid || !box || !img || !caption || !box.showModal) return;
 
       grid.addEventListener("click", function (event) {
-        var group = event.target.closest(".event__group");
-        if (!group) return;
+        var trigger = event.target.closest(".event__group");
 
-        var card = group.closest(".event");
-        if (!card) return;
+        // A click on the flier around the photo puts it away instead, so the
+        // flier is readable without moving the pointer off the card.
+        if (!trigger) {
+          var flier = event.target.closest(".event__flier");
+          var card = flier && flier.closest(".event");
+          if (card && card.querySelector(".event__group")) {
+            card.setAttribute("data-group-dismissed", "");
+          }
+          return;
+        }
+
+        var full = trigger.getAttribute("data-full");
+        var thumb = trigger.querySelector("img");
+        if (!full && !thumb) return;
 
         event.preventDefault();
-        card.setAttribute("data-group-dismissed", "");
+        img.src = full || thumb.currentSrc || thumb.src;
+        img.alt = thumb ? thumb.alt : "";
+        caption.textContent = trigger.getAttribute("data-caption") || "";
+        box.showModal();
       });
 
       // Bound per card rather than delegated: mouseleave does not bubble, and
-      // capturing it on the grid would also fire for the card's own children.
+      // capturing it on the grid would also fire as the pointer moved between
+      // a card's own children, re-arming the photo too early.
       Array.prototype.forEach.call(grid.querySelectorAll(".event"), function (card) {
         card.addEventListener("mouseleave", function () {
           card.removeAttribute("data-group-dismissed");
@@ -216,6 +265,17 @@ const stampLabels: Record<string, string> = {
             card.removeAttribute("data-group-dismissed");
           }
         });
+      });
+
+      // Clicking the backdrop closes it. The dialog fills the viewport, so
+      // anything outside the image or its caption counts as backdrop.
+      box.addEventListener("click", function (event) {
+        if (event.target === box) box.close();
+      });
+
+      // Drop the source once it is closed, so a big photo is not held in memory.
+      box.addEventListener("close", function () {
+        img.removeAttribute("src");
       });
     })();
   </script>

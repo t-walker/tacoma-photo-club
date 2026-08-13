@@ -627,21 +627,24 @@ a.credit__handle:focus-visible {
 
 /* The group shot from the night, laid over the foot of the flier like a print
    dropped on top of it. Hidden until the card is hovered, so the fliers still
-   read as a clean grid at rest. */
+   read as a clean grid at rest. Clicking it opens the lightbox. */
 .event__group {
   position: absolute;
   left: 8%;
   right: 8%;
   bottom: 6%;
-  margin: 0;
+  display: block;
+  width: auto;
+  padding: 0;
   line-height: 0;
   border: 4px solid var(--paper);
   outline: var(--rule-thin) solid var(--navy);
   box-shadow: 0 6px 14px rgba(16, 36, 58, 0.35);
+  background: var(--paper);
   opacity: 0;
   visibility: hidden;
   transform: translateY(6px);
-  cursor: pointer;
+  cursor: zoom-in;
   transition: opacity 180ms ease, transform 220ms ease, filter 220ms ease;
 }
 
@@ -652,7 +655,8 @@ a.credit__handle:focus-visible {
   transform: translateY(0);
 }
 
-/* Clicked away. Stays gone until the pointer leaves and comes back. */
+/* Clicked past, onto the flier. Stays gone until the pointer leaves and
+   comes back. */
 .event[data-group-dismissed] .event__group {
   opacity: 0;
   visibility: hidden;
@@ -665,21 +669,6 @@ a.credit__handle:focus-visible {
   height: auto;
   aspect-ratio: 3 / 2;
   object-fit: cover;
-}
-
-.event__group-tag {
-  position: absolute;
-  top: 0;
-  right: 0;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.5rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  line-height: 1;
-  padding: 0.22rem 0.4rem;
-  background: var(--accent);
-  color: var(--paper);
 }
 
 .event[data-status="past"] .event__group {
@@ -702,6 +691,62 @@ a.credit__handle:focus-visible {
   .event[data-group-dismissed] .event__group {
     transform: none;
   }
+}
+
+/* ---------- group photo lightbox ---------- */
+
+.lightbox {
+  width: min(96vw, 1200px);
+  max-width: none;
+  max-height: 94vh;
+  padding: clamp(0.6rem, 2vw, 1rem);
+  border: var(--rule-nav) solid var(--navy);
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.lightbox::backdrop {
+  background: rgba(16, 36, 58, 0.82);
+}
+
+.lightbox__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: calc(94vh - 5rem);
+  object-fit: contain;
+  background: var(--paper-edge);
+}
+
+.lightbox__caption {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(0.7rem, 0.64rem + 0.2vw, 0.82rem);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--navy);
+  margin: 0.6rem 0 0;
+}
+
+.lightbox__close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 2rem;
+  height: 2rem;
+  display: grid;
+  place-items: center;
+  font-size: 1.2rem;
+  line-height: 1;
+  border: 0;
+  background: var(--navy);
+  color: var(--paper);
+  cursor: pointer;
+}
+
+.lightbox__close:hover,
+.lightbox__close:focus-visible {
+  background: var(--accent);
 }
 
 .event[data-status="past"] .event__stamp {
