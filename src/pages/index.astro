@@ -94,7 +94,6 @@ const upcomingCards = await Promise.all(
     {
       nextEvent ? (
         <aside class="next-up" id="home-next-up" data-next-for={nextEvent.id}>
-          <p class="next-up__stamp">Next up</p>
           <a class="next-up__link" href={eventsHref}>
             <figure class="next-up__flier">
               {nextEvent.flierImage ? (
