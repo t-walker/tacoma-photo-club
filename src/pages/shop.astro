@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
+import JoinAd from "../components/JoinAd.astro";
 import site from "../data/site.json";
 import shop from "../data/shop.json";
 import { getShopImage } from "../lib/images";
@@ -41,6 +42,8 @@ const items = (shop as ShopItem[]).map((item) => ({
       something to sell.
     </p>
   </header>
+
+  <JoinAd />
 
   {
     items.length === 0 ? (

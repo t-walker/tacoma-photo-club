@@ -22,6 +22,15 @@ const shopModules = import.meta.glob<ImageModule>(
   { eager: true },
 );
 
+/**
+ * Vertical member photos for the classified ad on inner pages. The hero plates
+ * only suit landscape frames, so portrait work lives here instead.
+ */
+const memberModules = import.meta.glob<ImageModule>(
+  "../images/members/*.{jpg,jpeg,png,webp,avif}",
+  { eager: true },
+);
+
 function fileName(path: string): string {
   return path.split("/").pop() ?? path;
 }
@@ -64,6 +73,29 @@ export async function getHeroSources(width = 1600): Promise<HeroSource[]> {
         src: optimised.src,
         width: Number(optimised.attributes.width ?? width),
         height: Number(optimised.attributes.height ?? Math.round(width * 0.625)),
+        name: file,
+        credit: creditFor(file),
+      };
+    }),
+  );
+}
+
+/**
+ * Vertical member photos, credited from the same file as the heroes. Returns an
+ * empty list until someone drops a portrait frame into `src/images/members/`,
+ * so the classified ad can simply go text-only in the meantime.
+ */
+export async function getMemberPhotos(width = 640): Promise<HeroSource[]> {
+  const entries = Object.entries(memberModules).sort(([a], [b]) => a.localeCompare(b));
+
+  return Promise.all(
+    entries.map(async ([path, mod]) => {
+      const optimised = await getImage({ src: mod.default, width, format: "webp" });
+      const file = fileName(path);
+      return {
+        src: optimised.src,
+        width: Number(optimised.attributes.width ?? width),
+        height: Number(optimised.attributes.height ?? Math.round(width * 1.25)),
         name: file,
         credit: creditFor(file),
       };

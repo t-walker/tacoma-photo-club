@@ -1,5 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
+import JoinAd from "../components/JoinAd.astro";
 import labs from "../data/photo-labs.json";
 
 type Lab = {
@@ -39,6 +40,8 @@ const entries = (labs as Lab[])
       it.
     </p>
   </header>
+
+  <JoinAd />
 
   {
     entries.length === 0 ? (

@@ -30,6 +30,17 @@ is 16:9 and inset to 88% width, both cropped with `object-fit: cover`).
 Landscape images around 1600px wide work best. Astro optimises and hashes them
 at build time.
 
+### Member photos — `src/images/members/`
+
+The home page plates only suit landscape frames, so **vertical** member work
+goes in `src/images/members/` instead. It feeds the "Join the club!" classified
+ad that runs under the heading on Events, Photo Labs and Shop, and one is picked
+at random on every page load.
+
+Portrait images around 640px wide are plenty. Credits come from
+`src/data/hero-credits.json`, exactly like the hero photos. While the folder is
+empty the ad quietly renders as text only.
+
 ### Events — `src/data/events.json`
 
 ```jsonc

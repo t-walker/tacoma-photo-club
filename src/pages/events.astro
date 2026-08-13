@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
+import JoinAd from "../components/JoinAd.astro";
 import { getEvents, getNextEvent } from "../lib/events";
 
 const events = getEvents();
@@ -20,6 +21,8 @@ const stampLabels: Record<string, string> = {
       Come hang out with us at one of our upcoming events and see what our members have loved in the past!
     </p>
   </header>
+
+  <JoinAd />
 
   {
     nextEvent ? (
