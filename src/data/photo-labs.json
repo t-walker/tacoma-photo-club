@@ -62,7 +62,7 @@
     "location": "Gaston, OR",
     "milesFromTacoma": 175,
     "capabilities": ["C-41", "B&W", "E-6", "35mm", "Half-frame", "120", "Scanning"],
-    "priceRange": "$",
+    "priceRange": "$$",
     "dropOff": "40080 SW Nelson Dr, Gaston — drop box only",
     "dropBoxes": ["Chapters Books & Coffee — 701 E 1st St, Newberg"],
     "mailIn": true,
