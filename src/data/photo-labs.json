@@ -62,7 +62,7 @@
     "location": "Gaston, OR",
     "milesFromTacoma": 175,
     "capabilities": ["C-41", "B&W", "E-6", "35mm", "Half-frame", "120", "Scanning"],
-    "priceRange": "Ask",
+    "priceRange": "$",
     "dropOff": "40080 SW Nelson Dr, Gaston — drop box only",
     "dropBoxes": ["Chapters Books & Coffee — 701 E 1st St, Newberg"],
     "mailIn": true,
@@ -88,13 +88,13 @@
     "location": "Tacoma, WA",
     "milesFromTacoma": 7,
     "capabilities": ["C-41", "35mm", "Scanning", "Prints"],
-    "priceRange": "$",
+    "priceRange": "$$$",
     "dropOff": "11702 Pacific Ave S, Tacoma",
     "dropBoxes": [],
     "mailIn": false,
-    "turnaround": "Same day on colour",
+    "turnaround": "Same day on color",
     "url": "https://speedyephoto.com",
-    "notes": "The closest quick colour turnaround in town. Tues-Sat; call ahead for anything other than C-41 35mm."
+    "notes": "The closest quick color turnaround in town. Tues-Sat; call ahead for anything other than C-41 35mm."
   },
   {
     "name": "Tacoma Photo Center",
@@ -120,6 +120,6 @@
     "mailIn": true,
     "turnaround": "3-7 business days once your rolls are logged in",
     "url": "https://creativeroomfilmlab.com",
-    "notes": "Mail-in from our end, developed and scanned on Noritsu gear. From $15/roll for 35mm colour; 4K scans, prints and negatives back cost extra. No E-6 or 120."
+    "notes": "Mail-in from our end, developed and scanned on Noritsu gear. From $15/roll for 35mm color; 4K scans, prints and negatives back cost extra. No E-6 or 120."
   }
 ]
