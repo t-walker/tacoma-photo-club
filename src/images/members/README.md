@@ -1,8 +1,8 @@
 # Member photos (vertical)
 
 Drop **portrait / vertical** member photographs in this folder. They appear in
-the "Join the club!" classified ad on the home page and beside the title on the
-inner pages, picked at random in the browser on every page load.
+the "Classifieds" ad on the home page and beside the title on the inner pages,
+picked at random in the browser on every page load.
 
 - Any `.jpg`, `.jpeg`, `.png`, `.webp` or `.avif` is picked up automatically —
   no code change, no manifest to update.
@@ -11,5 +11,5 @@ inner pages, picked at random in the browser on every page load.
 - Landscape frames belong in `src/images/hero/` instead — those run full width
   on the home page.
 
-While this folder has no photos in it, the classified ad renders as text
-only and the inner page titles run full width.
+While this folder has no photos in it, both slots show a dashed "member photo
+wanted" placeholder instead.

@@ -1,18 +1,14 @@
 ---
 import site from "../data/site.json";
 import MemberPhoto from "./MemberPhoto.astro";
-import { getMemberPhotos } from "../lib/images";
 
 const base = import.meta.env.BASE_URL;
 const withBase = (path: string) => `${base.replace(/\/$/, "")}/${path.replace(/^\//, "")}`;
-
-/** Only widen into two columns once there is actually a photo to show. */
-const hasPhoto = (await getMemberPhotos()).length > 0;
 ---
 
-<aside class="classified" data-has-photo={hasPhoto ? "" : undefined}>
+<aside class="classified">
   <div class="classified__body">
-    <p class="classified__kicker">Classified</p>
+    <p class="classified__kicker">Classifieds</p>
     <h2 class="classified__title">Join the club!</h2>
     <ul class="classified__list">
       <li>Turn up to anything on the <a href={withBase("/events/")}>Events page</a> — no sign-up, no dues.</li>

@@ -12,8 +12,8 @@ const { id, class: className } = Astro.props;
 /**
  * A vertical member photo with its credit tag. Picked again in the browser on
  * every load, the same way the home page plates work, so a cached page still
- * shuffles. Renders nothing while `src/images/members/` is empty, which lets
- * callers lay out around an absent photo.
+ * shuffles. Falls back to a "wanted" placeholder while `src/images/members/`
+ * is empty, so the slot still reads as part of the page.
  */
 const photos = await getMemberPhotos();
 const first = photos[0];
@@ -47,7 +47,12 @@ const creditId = `${id}-credit`;
         )}
       </figcaption>
     </figure>
-  ) : null
+  ) : (
+    <figure class:list={["member-photo", "member-photo--empty", className]}>
+      <p class="member-photo__label">Member photo wanted</p>
+      <p class="member-photo__note">Share yours in the Discord.</p>
+    </figure>
+  )
 }
 
 {
