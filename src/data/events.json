@@ -104,6 +104,14 @@
     "flier": "s-tacoma-way-walk.jpg"
   },
   {
+    "id": "sight-and-sound-tacoma",
+    "title": "Sight and Sound: Tacoma",
+    "location": "Steps of UW Tacoma, near 1748 Pacific Ave",
+    "date": "2025-10-12T13:00:00-07:00",
+    "description": "Photo walk with the Seattle Film Club, to a playlist curated by Jaymes Junio.",
+    "flier": "sight-and-sound-tacoma.jpg"
+  },
+  {
     "id": "ferries-on-film",
     "title": "Ferries on Film — Meet Up & Happy Hour",
     "location": "Point Defiance Ferry Terminal",
