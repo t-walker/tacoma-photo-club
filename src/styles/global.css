@@ -24,6 +24,10 @@
   --font-display: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-body: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-script: "Caveat", "Segoe Script", "Brush Script MT", cursive;
+  /* Display script, for the two big hand-lettered moments only: the home page
+     slogan and the classifieds "Join the club!". Not for running text — the
+     strokes get delicate below ~1.75rem. */
+  --font-headline-script: "Yellowtail", "Brush Script MT", cursive;
 
   /* The ad "sheet". Phone shows it edge to edge; large screens stretch to this
      width and stay centred, exactly like a magazine page on a desk. */
@@ -184,6 +188,18 @@ a {
   letter-spacing: -0.035em;
   color: var(--navy);
   margin: 0.35em 0 0.5em;
+}
+
+/* The slogan. A connected script can't take the headline's negative tracking —
+   exit strokes land on the next letter — and Yellowtail ships a single weight,
+   so the inherited 700 must be reset or the browser fakes it and smears the
+   thin strokes. */
+.headline--script {
+  font-family: var(--font-headline-script);
+  font-weight: 400;
+  letter-spacing: normal;
+  line-height: 1.15;
+  padding-bottom: 0.08em;
 }
 
 .script {
@@ -1063,11 +1079,13 @@ a.credit__handle:focus-visible {
 }
 
 .classified__title {
-  font-family: var(--font-display);
-  font-size: clamp(1.75rem, 1.35rem + 1.9vw, 2.75rem);
-  line-height: 1.03;
+  font-family: var(--font-headline-script);
+  font-weight: 400;
+  font-size: clamp(1.95rem, 1.45rem + 2.2vw, 3.05rem);
+  line-height: 1.2;
   color: var(--navy);
   margin: 0 0 0.7rem;
+  padding-bottom: 0.06em;
 }
 
 .classified__list {
