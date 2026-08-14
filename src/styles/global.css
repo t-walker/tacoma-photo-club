@@ -856,17 +856,9 @@ a.credit__handle:focus-visible {
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 0.25rem;
-}
-
-.places li {
-  padding-left: 0.75rem;
-  text-indent: -0.75rem;
-}
-
-.places li::before {
-  content: "— ";
-  color: var(--ink-faint);
+  /* No bullet marker, so the gap is the only thing separating one drop box
+     from the next when an entry wraps. */
+  gap: 0.5rem;
 }
 
 .tags {
