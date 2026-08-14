@@ -200,7 +200,7 @@ a {
   /* Positive tracking to counter the optical tightening a script picks up at
      display size. Kept small — Yellowtail's letters join, and past ~0.03em the
      connecting strokes visibly pull apart. */
-  letter-spacing: 0.025em;
+  letter-spacing: 0.03em;
   line-height: 1.15;
   padding-bottom: 0.08em;
 }
@@ -792,12 +792,18 @@ a.credit__handle:focus-visible {
   margin: 0;
   padding: 0;
   border-top: var(--rule-thick) solid var(--navy);
+  /* Clips the column rule off the last card in every row. See .lab. */
+  overflow: hidden;
 }
 
 .lab {
   padding: clamp(0.9rem, 3vw, 1.4rem) clamp(0.75rem, 2.5vw, 1.25rem);
   border-bottom: var(--rule-thin) solid var(--navy);
-  border-right: var(--rule-thin) solid var(--navy);
+  /* The column rule is a shadow, not a border, so it paints just outside the
+     card. The cards that end a row push it past the grid's edge, where the
+     overflow clip removes it — which keeps the rule purely *between* columns
+     however many auto-fill decides to make. */
+  box-shadow: var(--rule-thin) 0 0 var(--navy);
 }
 
 .lab__name {
