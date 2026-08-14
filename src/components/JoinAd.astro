@@ -11,16 +11,17 @@ const withBase = (path: string) => `${base.replace(/\/$/, "")}/${path.replace(/^
     <p class="classified__kicker">Classifieds</p>
     <h2 class="classified__title">Join the club!</h2>
     <ul class="classified__list">
-      <li>Turn up to anything on the <a href={withBase("/events/")}>Events page</a> — no sign-up, no dues.</li>
-      <li>Bring whatever you shoot. Film, digital, phone, pinhole.</li>
+      <li>Join us at one of our monthly events listed on the <a href={withBase("/events/")}>Events page</a>.</li>
+      <li>No registrations, sign-ups, or dues.</li>
+      <li>Bring whatever camera you've got.</li>
       <li>
-        Say hello in the{" "}
+        Chat with the community on {" "}
         <a href={site.discordUrl} target="_blank" rel="noopener noreferrer">Discord</a>.
       </li>
       {
         site.instagram && (
           <li>
-            Follow along on{" "}
+            Follow us on{" "}
             <a href={site.instagram} target="_blank" rel="noopener noreferrer">
               Instagram
             </a>

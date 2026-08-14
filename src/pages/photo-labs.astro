@@ -2,6 +2,8 @@
 import Base from "../layouts/Base.astro";
 import MemberPhoto from "../components/MemberPhoto.astro";
 import labs from "../data/photo-labs.json";
+import site from "../data/site.json";
+
 
 type Lab = {
   name: string;
@@ -36,9 +38,8 @@ const entries = (labs as Lab[])
       <p class="eyebrow">Friends of Ours</p>
       <h1 class="headline">Photo Labs</h1>
       <p class="lede">
-        Where we send our film, nearest to Tacoma first. Prices are rough guides, not quotes — call
-        ahead, and tell them the club sent you. Missing a lab? Post it in the Discord and we will add
-        it.
+        Here are some of the places we've sent our film with a basic run-down on each lab; ordered by driving distance to Tacoma. 
+        If we're missing something, <a href={site.instagram} target="_blank" rel="noopener noreferrer">shoot us a DM</a> on Instagram.
       </p>
     </div>
     <MemberPhoto id="labs-photo" class="page-head__photo" />
