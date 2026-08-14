@@ -3,6 +3,7 @@ import { Image, getImage } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import MemberPhoto from "../components/MemberPhoto.astro";
 import { getEvents, getNextEvent } from "../lib/events";
+import site from "../data/site.json";
 
 const events = getEvents();
 const nextEvent = getNextEvent(events);
@@ -38,6 +39,8 @@ const groupFulls = new Map(
       <h1 class="headline">Events</h1>
       <p class="lede">
         Come hang out with us at one of our upcoming events and check out our past events!
+        We share all of our events on <a href={site.instagram} target="_blank" rel="noopener noreferrer">Instagram</a> as well as promoting other clubs' events!
+        Side-quests, impromptu meetups, and other photo-related happenings are often shared on our <a href={site.discordUrl} target="_blank" rel="noopener noreferrer">Discord</a> server.
       </p>
     </div>
     <MemberPhoto id="events-photo" class="page-head__photo" />
