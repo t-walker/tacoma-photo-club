@@ -197,7 +197,10 @@ a {
 .headline--script {
   font-family: var(--font-headline-script);
   font-weight: 400;
-  letter-spacing: normal;
+  /* Positive tracking to counter the optical tightening a script picks up at
+     display size. Kept small — Yellowtail's letters join, and past ~0.03em the
+     connecting strokes visibly pull apart. */
+  letter-spacing: 0.025em;
   line-height: 1.15;
   padding-bottom: 0.08em;
 }
