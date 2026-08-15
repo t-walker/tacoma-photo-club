@@ -62,8 +62,9 @@ const tiles = await getCurtainTiles();
     z-index: 1;
     width: clamp(300px, 72vw, 780px);
     height: auto;
-    /* Just enough shadow to hold the white mark against a pale photo. */
-    filter: drop-shadow(0 2px 12px rgba(16, 36, 58, 0.35));
+    /* Kept tight and dark, so the white mark reads as negative space cut out of
+       the photos rather than as a glow floating over them. */
+    filter: drop-shadow(0 1px 4px rgba(16, 36, 58, 0.55));
   }
 
   html:not([data-tpc-curtain="down"]) {
