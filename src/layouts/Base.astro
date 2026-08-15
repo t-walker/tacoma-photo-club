@@ -1,5 +1,6 @@
 ---
 import site from "../data/site.json";
+import Curtain from "../components/Curtain.astro";
 import "../styles/global.css";
 
 interface Props {
@@ -48,6 +49,7 @@ const isCurrent = (href: string) => !href.startsWith("http") && (href.replace(/\
     />
   </head>
   <body>
+    <Curtain />
     <div class="sheet">
       <header class="masthead">
         <div class="masthead__kicker">

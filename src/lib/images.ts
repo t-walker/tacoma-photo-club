@@ -113,8 +113,23 @@ export async function getMemberPhotos(width = 640): Promise<HeroSource[]> {
   );
 }
 
-/** Look up an event flier by its file name as written in `events.json`. */
-export function getEventFlier(flier: string | undefined): ImageMetadata | undefined {
+/**
+ * Small square-croppable sources for the pre-launch curtain mosaic: every
+ * member portrait and every hero frame, mixed together. Both orientations are
+ * included on purpose — the tiles crop to a square either way.
+ */
+export async function getCurtainTiles(width = 420): Promise<{ src: string }[]> {
+  const entries = [...Object.values(memberModules), ...Object.values(heroModules)];
+
+  return Promise.all(
+    entries.map(async (mod) => {
+      const optimised = await getImage({ src: mod.default, width, format: "webp" });
+      return { src: optimised.src };
+    }),
+  );
+}
+
+/** Look up an event flier by its file name as written in `events.json`. */export function getEventFlier(flier: string | undefined): ImageMetadata | undefined {
   if (!flier) return undefined;
   const match = Object.entries(eventModules).find(([path]) => fileName(path) === flier);
   return match?.[1].default;
