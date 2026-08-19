@@ -47,6 +47,17 @@ const isCurrent = (href: string) => !href.startsWith("http") && (href.replace(/\
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&family=Caveat:wght@500;700&family=Yellowtail&display=swap"
     />
+    <script is:inline>
+      /* Read before first paint, so a returning visitor never sees the curtain
+         flash up before the script in the body can take it down. */
+      try {
+        if (localStorage.getItem("tpc:curtain") === "down") {
+          document.documentElement.dataset.tpcCurtain = "down";
+        }
+      } catch {
+        /* Storage blocked — the curtain just greets them again. */
+      }
+    </script>
   </head>
   <body>
     <Curtain />

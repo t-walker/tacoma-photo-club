@@ -1,7 +1,7 @@
 ---
 /**
  * Pre-launch curtain: a blank white screen with nothing but the logo, which
- * slowly tiles over with members' work. Typing the club initials lifts it.
+ * slowly tiles over with members' work. Clicking the logo lifts it for good.
  */
 import { Image } from "astro:assets";
 import logo from "../images/brand/tpc-logo-white.png";
@@ -12,21 +12,23 @@ const tiles = await getCurtainTiles();
 
 <div class="curtain" id="curtain" role="presentation">
   <div class="curtain__mosaic" id="curtain-mosaic" aria-hidden="true"></div>
-  <Image
-    class="curtain__logo"
-    src={logo}
-    alt="Tacoma Photo Club"
-    widths={[480, 720, 1080, 1560]}
-    sizes="(min-width: 1100px) 780px, 72vw"
-    loading="eager"
-  />
+  <button class="curtain__key" id="curtain-key" type="button" aria-label="Enter Tacoma Photo Club">
+    <Image
+      class="curtain__logo"
+      src={logo}
+      alt=""
+      widths={[480, 720, 1080, 1560]}
+      sizes="(min-width: 1100px) 780px, 72vw"
+      loading="eager"
+    />
+  </button>
 </div>
 
 <script type="application/json" id="curtain-tiles" set:html={JSON.stringify(tiles)} />
 
 <style is:global>
-  /* The curtain is rendered into every page and only removed once the unlock
-     script runs, so a visitor without the key never sees the site underneath. */
+  /* The curtain is rendered into every page and only removed once the visitor
+     has clicked through it, so the site is never glimpsed before the greeting. */
   .curtain {
     position: fixed;
     inset: 0;
@@ -56,10 +58,36 @@ const tiles = await getCurtainTiles();
     opacity: 1;
   }
 
-  .curtain__logo {
+  /* A scrim over the photos, so the white mark keeps its contrast no matter
+     which frames happen to land behind it. */
+  .curtain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 22, 36, 0.42);
+    pointer-events: none;
+  }
+
+  .curtain__key {
     position: relative;
     /* Sits above the mosaic, so photos fill in behind the mark. */
     z-index: 1;
+    display: block;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    transform-origin: center;
+  }
+
+  .curtain__key:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 16px;
+    border-radius: 4px;
+  }
+
+  .curtain__logo {
+    display: block;
     width: clamp(300px, 72vw, 780px);
     height: auto;
     /* Kept tight and dark, so the white mark reads as negative space cut out of
@@ -94,38 +122,114 @@ const tiles = await getCurtainTiles();
     .curtain__cell {
       transition: opacity 400ms ease;
     }
+
+    .curtain__key {
+      transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1), opacity 400ms ease;
+    }
+
+    /* Held back until the mosaic has finished dealing itself out, so the glow
+       reads as an invitation rather than as part of the loading. */
+    .curtain[data-ready] .curtain__logo {
+      animation: curtain-beckon 3.8s ease-in-out infinite;
+    }
+
+    .curtain[data-ready] .curtain__key:hover,
+    .curtain[data-ready] .curtain__key:focus-visible {
+      transform: scale(1.04);
+    }
+
+    .curtain[data-ready] .curtain__key:hover .curtain__logo,
+    .curtain[data-ready] .curtain__key:focus-visible .curtain__logo {
+      animation: none;
+      filter: drop-shadow(0 1px 4px rgba(16, 36, 58, 0.55)) drop-shadow(0 0 34px rgba(255, 255, 255, 0.75));
+    }
+
+    .curtain[data-exiting] .curtain__key {
+      transform: scale(0.12);
+      opacity: 0;
+      transition: transform 620ms cubic-bezier(0.65, 0, 0.35, 1), opacity 520ms ease-in 120ms;
+      pointer-events: none;
+    }
+
+    .curtain[data-exiting] .curtain__logo {
+      animation: none;
+    }
+
+    @keyframes curtain-beckon {
+      0%,
+      100% {
+        filter: drop-shadow(0 1px 4px rgba(16, 36, 58, 0.55)) drop-shadow(0 0 6px rgba(255, 255, 255, 0));
+      }
+      50% {
+        filter: drop-shadow(0 1px 4px rgba(16, 36, 58, 0.55)) drop-shadow(0 0 26px rgba(255, 255, 255, 0.6));
+      }
+    }
   }
 </style>
 
 <script is:inline>
   (() => {
-    const SECRET = "tpc";
+    const STORE_KEY = "tpc:curtain";
     const root = document.documentElement;
+    const curtain = document.getElementById("curtain");
+    const key = document.getElementById("curtain-key");
+    if (!curtain || !key) return;
 
-    /* Deliberately not remembered: every load, reload and navigation drops the
-       curtain again, so the visitor has to know the word each time. */
     const lift = () => {
       root.dataset.tpcCurtain = "down";
     };
 
-    let typed = "";
-    document.addEventListener("keydown", (event) => {
-      if (event.metaKey || event.ctrlKey || event.altKey) return;
-      if (event.key.length !== 1) return;
+    /* Once someone has been let in, they stay in: the curtain is a first-visit
+       greeting, not a lock. */
+    let remembered = false;
+    try {
+      remembered = localStorage.getItem(STORE_KEY) === "down";
+    } catch {
+      /* Private browsing and the like — the curtain simply shows again. */
+    }
+    if (remembered) {
+      lift();
+      return;
+    }
 
-      typed = (typed + event.key.toLowerCase()).slice(-SECRET.length);
-      if (typed !== SECRET) return;
+    let leaving = false;
+    key.addEventListener("click", () => {
+      if (leaving) return;
+      leaving = true;
 
-      const curtain = document.getElementById("curtain");
-      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (!curtain || reduced) {
+      /* Written before the animation, so a reload mid-exit still lands inside. */
+      try {
+        localStorage.setItem(STORE_KEY, "down");
+      } catch {
+        /* Nothing to do — the visitor just meets the curtain again next time. */
+      }
+
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
         lift();
         return;
       }
 
-      curtain.dataset.lifting = "";
-      curtain.addEventListener("transitionend", lift, { once: true });
-      setTimeout(lift, 600);
+      /* The logo shrinks into the middle first, then the photos dissolve out
+         from under it to hand the page over. */
+      curtain.dataset.exiting = "";
+
+      const cells = Array.from(curtain.querySelectorAll(".curtain__cell[data-shown]"));
+      for (let i = cells.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [cells[i], cells[j]] = [cells[j], cells[i]];
+      }
+
+      const dissolve = Math.max(4, Math.round(700 / (cells.length || 1)));
+      window.setTimeout(() => {
+        cells.forEach((cell, i) => {
+          window.setTimeout(() => cell.removeAttribute("data-shown"), i * dissolve);
+        });
+      }, 480);
+
+      window.setTimeout(() => {
+        curtain.dataset.lifting = "";
+      }, 1320);
+      window.setTimeout(lift, 1800);
     });
   })();
 </script>
@@ -134,7 +238,9 @@ const tiles = await getCurtainTiles();
   (() => {
     const mosaic = document.getElementById("curtain-mosaic");
     const payload = document.getElementById("curtain-tiles");
-    if (!mosaic || !payload) return;
+    const curtain = document.getElementById("curtain");
+    if (!mosaic || !payload || !curtain) return;
+    if (document.documentElement.dataset.tpcCurtain === "down") return;
 
     /** @type {{ src: string }[]} */
     let sources = [];
@@ -170,6 +276,7 @@ const tiles = await getCurtainTiles();
     let timer = 0;
     const build = () => {
       window.clearTimeout(timer);
+      delete curtain.dataset.ready;
       mosaic.textContent = "";
 
       const target = window.innerWidth < 640 ? 88 : 132;
@@ -193,6 +300,7 @@ const tiles = await getCurtainTiles();
       const order = shuffle(cells);
       if (reduced) {
         order.forEach((div) => div.setAttribute("data-shown", ""));
+        curtain.dataset.ready = "";
         return;
       }
 
@@ -203,7 +311,12 @@ const tiles = await getCurtainTiles();
       const reveal = () => {
         order[next].setAttribute("data-shown", "");
         next += 1;
-        if (next < order.length) timer = window.setTimeout(reveal, step);
+        if (next < order.length) {
+          timer = window.setTimeout(reveal, step);
+          return;
+        }
+        /* Every frame is on screen: let the logo start beckoning. */
+        curtain.dataset.ready = "";
       };
       timer = window.setTimeout(reveal, 150);
     };
