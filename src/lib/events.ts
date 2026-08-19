@@ -61,3 +61,12 @@ export function getNextEvent(events: DecoratedEvent[]): DecoratedEvent | undefin
   const upcoming = events.filter((event) => event.status === "upcoming");
   return upcoming[upcoming.length - 1];
 }
+
+/**
+ * The most recent nights out, newest first. Between seasons — when nothing is
+ * on the calendar yet — the featured slot falls back to one of these rather
+ * than leaving a hole in the layout.
+ */
+export function getRecentEvents(events: DecoratedEvent[], limit = 6): DecoratedEvent[] {
+  return events.filter((event) => event.status === "past").slice(0, limit);
+}

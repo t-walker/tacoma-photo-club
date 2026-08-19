@@ -5,7 +5,7 @@ import Logo from "../components/Logo.astro";
 import JoinAd from "../components/JoinAd.astro";
 import site from "../data/site.json";
 import { getHeroSources } from "../lib/images";
-import { getEvents, getNextEvent } from "../lib/events";
+import { getEvents, getNextEvent, getRecentEvents } from "../lib/events";
 
 const heroSources = await getHeroSources();
 const fallbackTop = heroSources[0];
@@ -16,25 +16,28 @@ const eventsHref = `${base.replace(/\/$/, "")}/events/`;
 
 const events = getEvents();
 const nextEvent = getNextEvent(events);
+const recentEvents = getRecentEvents(events);
+
+/* Between seasons the slot shows a night we have already had rather than
+   collapsing the third column. */
+const featured = nextEvent ?? recentEvents[0];
 
 /**
- * Every still-upcoming event, pre-rendered to a flat payload so the browser can
- * re-pick the "next up" card against the visitor's clock — a page cached past
- * the featured event's date would otherwise advertise something already shot.
+ * Everything the slot might show, pre-rendered to a flat payload so the browser
+ * can re-pick against the visitor's clock — a page cached past the featured
+ * event's date would otherwise advertise something already shot.
  */
-const upcomingCards = await Promise.all(
-  events
-    .filter((event) => event.status === "upcoming")
-    .map(async (event) => ({
-      id: event.id,
-      date: event.date,
-      title: event.title,
-      location: event.location,
-      meta: `${event.dateLabel}${event.timeLabel ? ` · ${event.timeLabel}` : ""}`,
-      src: event.flierImage
-        ? (await getImage({ src: event.flierImage, width: 540, format: "webp" })).src
-        : "",
-    })),
+const eventCards = await Promise.all(
+  [...events.filter((event) => event.status === "upcoming"), ...recentEvents].map(async (event) => ({
+    id: event.id,
+    date: event.date,
+    title: event.title,
+    location: event.location,
+    meta: `${event.dateLabel}${event.timeLabel ? ` · ${event.timeLabel}` : ""}`,
+    src: event.flierImage
+      ? (await getImage({ src: event.flierImage, width: 540, format: "webp" })).src
+      : "",
+  })),
 );
 ---
 
@@ -92,27 +95,30 @@ const upcomingCards = await Promise.all(
     </div>
 
     {
-      nextEvent ? (
-        <aside class="next-up" id="home-next-up" data-next-for={nextEvent.id}>
+      featured ? (
+        <aside class="next-up" id="home-next-up" data-next-for={featured.id}>
+          <p class="next-up__kicker" id="home-next-up-kicker">
+            {nextEvent ? "Next up" : "Past event"}
+          </p>
           <a class="next-up__link" href={eventsHref}>
             <figure class="next-up__flier">
-              {nextEvent.flierImage ? (
+              {featured.flierImage ? (
                 <Image
-                  src={nextEvent.flierImage}
-                  alt={`Flier for ${nextEvent.title}`}
+                  src={featured.flierImage}
+                  alt={`Flier for ${featured.title}`}
                   widths={[320, 540]}
                   sizes="(min-width: 720px) 300px, 90vw"
                   loading="lazy"
                 />
               ) : null}
             </figure>
-            <h2 class="next-up__title">{nextEvent.title}</h2>
+            <h2 class="next-up__title">{featured.title}</h2>
           </a>
           <p class="next-up__meta">
-            {nextEvent.dateLabel}
-            {nextEvent.timeLabel ? ` · ${nextEvent.timeLabel}` : ""}
+            {featured.dateLabel}
+            {featured.timeLabel ? ` · ${featured.timeLabel}` : ""}
             <br />
-            {nextEvent.location}
+            {featured.location}
           </p>
         </aside>
       ) : null
@@ -121,51 +127,70 @@ const upcomingCards = await Promise.all(
 
   <JoinAd />
 
-  <script is:inline define:vars={{ upcomingCards }}>
-    // The page is static, so the flier baked in at build time can go stale.
-    // Re-pick the soonest event that is still ahead of the visitor's clock, and
-    // hide the column outright once nothing is upcoming.
+  <script is:inline define:vars={{ eventCards }}>
+    // The page is static, so the event baked in at build time can go stale.
+    // Re-pick against the visitor's clock: the soonest night still ahead of
+    // them, or — with nothing on the calendar — a recent one from the archive.
     (function () {
       var box = document.getElementById("home-next-up");
       if (!box) return;
 
-      var cards = upcomingCards || [];
       var now = Date.now();
-      var soonest = null;
-
-      cards.forEach(function (card) {
-        var when = new Date(card.date).getTime();
-        if (isNaN(when) || when < now) return;
-        if (!soonest || when < new Date(soonest.date).getTime()) soonest = card;
+      var cards = (eventCards || []).filter(function (card) {
+        return !isNaN(new Date(card.date).getTime());
       });
 
-      if (!soonest) {
+      var upcoming = cards
+        .filter(function (card) {
+          return new Date(card.date).getTime() >= now;
+        })
+        .sort(function (a, b) {
+          return new Date(a.date) - new Date(b.date);
+        });
+
+      var pick = upcoming[0];
+      var kicker = "Next up";
+
+      if (!pick) {
+        var recent = cards
+          .sort(function (a, b) {
+            return new Date(b.date) - new Date(a.date);
+          })
+          .slice(0, 6);
+        pick = recent[Math.floor(Math.random() * recent.length)];
+        kicker = "Past event";
+      }
+
+      if (!pick) {
         box.hidden = true;
         return;
       }
 
-      if (box.getAttribute("data-next-for") === soonest.id) return;
+      var kickerBox = document.getElementById("home-next-up-kicker");
+      if (kickerBox) kickerBox.textContent = kicker;
+
+      if (box.getAttribute("data-next-for") === pick.id) return;
 
       var img = box.querySelector(".next-up__flier img");
-      if (img && soonest.src) {
+      if (img && pick.src) {
         img.removeAttribute("srcset");
         img.removeAttribute("sizes");
-        img.src = soonest.src;
-        img.alt = "Flier for " + soonest.title;
+        img.src = pick.src;
+        img.alt = "Flier for " + pick.title;
       }
 
       var title = box.querySelector(".next-up__title");
-      if (title) title.textContent = soonest.title;
+      if (title) title.textContent = pick.title;
 
       var meta = box.querySelector(".next-up__meta");
       if (meta) {
         meta.textContent = "";
-        meta.appendChild(document.createTextNode(soonest.meta));
+        meta.appendChild(document.createTextNode(pick.meta));
         meta.appendChild(document.createElement("br"));
-        meta.appendChild(document.createTextNode(soonest.location));
+        meta.appendChild(document.createTextNode(pick.location));
       }
 
-      box.setAttribute("data-next-for", soonest.id);
+      box.setAttribute("data-next-for", pick.id);
     })();
   </script>
 
