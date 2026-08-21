@@ -1069,7 +1069,8 @@ a.credit__handle:focus-visible {
 .classified {
   display: grid;
   grid-template-columns: minmax(0, 1fr) var(--member-photo-width);
-  gap: clamp(1.1rem, 3vw, 2rem);
+  column-gap: clamp(1.1rem, 3vw, 2rem);
+  row-gap: 0.3rem;
   align-items: start;
   /* Dashed rules, the way a newspaper fenced off its classifieds column. */
   border-top: var(--rule-thick) dashed var(--navy);
@@ -1079,7 +1080,37 @@ a.credit__handle:focus-visible {
   margin-bottom: clamp(1rem, 3vw, 1.75rem);
 }
 
+/* Stacked ads read as one column: one dashed rule top and bottom, no repeats. */
+.classified:has(+ .classified) {
+  border-bottom: 0;
+  margin-bottom: 0;
+}
+
+.classified + .classified {
+  border-top: 0;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* Photos alternate sides down the column; the body stays first in the DOM so
+   the single-column layout still leads with the text. */
+.classified--photo-left {
+  grid-template-columns: var(--member-photo-width) minmax(0, 1fr);
+}
+
+.classified--photo-left .classified__body {
+  grid-row: 2;
+  grid-column: 2;
+}
+
+.classified--photo-left .classified__photo {
+  grid-row: 2;
+  grid-column: 1;
+}
+
+/* The kicker heads the whole ad, sitting above both the copy and the photo. */
 .classified__kicker {
+  grid-column: 1 / -1;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: clamp(0.76rem, 0.68rem + 0.28vw, 0.94rem);
@@ -1177,6 +1208,16 @@ a.credit__handle:focus-visible {
 @media (max-width: 640px) {
   .classified {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .classified--photo-left .classified__body,
+  .classified--photo-left .classified__photo {
+    grid-row: auto;
+    grid-column: 1;
+  }
+
+  .classified__photo {
+    margin-top: clamp(1.1rem, 3vw, 2rem);
   }
 
   .page-head:has(.page-head__photo) {

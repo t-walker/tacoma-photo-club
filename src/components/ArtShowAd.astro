@@ -1,0 +1,25 @@
+---
+import MemberPhoto from "./MemberPhoto.astro";
+
+const submitUrl = "https://forms.gle/VVVUZVdXYBKLmM5N6";
+---
+
+<aside class="classified classified--photo-left">
+  <p class="classified__kicker">Classifieds</p>
+  <div class="classified__body">
+    <h2 class="classified__title">3rd Anniversary Art Show</h2>
+    <ul class="classified__list">
+      <li>
+        <a href={submitUrl} target="_blank" rel="noopener noreferrer">Submit to our art show</a>.
+      </li>
+      <li>
+        “Self, Not Selfie” is an invitation to explore who you are through the things you notice,
+        the places you return to, the people you love, the objects you keep, the moments you’re
+        drawn toward, and the way you see the world.
+      </li>
+      <li>One-Night Exhibition, September 19 6–9pm at Manuscript.</li>
+    </ul>
+  </div>
+
+  <MemberPhoto id="art-show-photo" class="classified__photo" />
+</aside>

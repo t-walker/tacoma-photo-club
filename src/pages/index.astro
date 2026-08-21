@@ -3,6 +3,7 @@ import { Image, getImage } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import Logo from "../components/Logo.astro";
 import JoinAd from "../components/JoinAd.astro";
+import ArtShowAd from "../components/ArtShowAd.astro";
 import site from "../data/site.json";
 import { getHeroSources } from "../lib/images";
 import { getEvents, getNextEvent, getRecentEvents } from "../lib/events";
@@ -73,24 +74,35 @@ const eventCards = await Promise.all(
     <div class="copy">
       <Logo class="copy__logo" />
       <p>
-        Founded in 2023 by Matt Wade, Melissa Jividan, and Adam Repp the Tacoma Photo club has been a cornerstone of the Tacoma arts scene.
-        We host free monthly meetups for anyone interested in attending! This club is open to photographers of all skill levels and backgrounds.
-        Our members range from nature enthusiasts to heavy-metal concert photographers. 
+        Tacoma Photo Club started, like most good things, with a few photography nerds finding each other on the internet.
       </p>
       <p>
-        The photo club has many partners throughout the region including the Tacoma Photo Center and other film and photo clubs.
-        Anyone who is interested in starting with digital or film photography will find plenty of folks to talk to (...good luck getting them to stop!)
+        In August 2023, Matt, Melissa, and Adam connected through social media and met up at the Tacoma Photo Center to talk shop.
+        What was supposed to be a casual hang quickly turned into something bigger. We realized we were all circling the same idea in Tacoma:
+        a real community for people who actually love photography. A place to show up, make work, trade ideas, learn from each other,
+        and get a little too excited about cameras, without the gatekeeping, the pressure to “qualify,” or any of the usual nonsense.
+      </p>
+      <p>So we decided to build it ourselves.</p>
+      <p>
+        Tacoma Photo Club was born from that conversation, with Tyler joining the crew a year later. What started with a few people
+        talking about photography has since grown into an eclectic community of photographers and creatives from across the region.
       </p>
       <p>
-        We invite you to connect with us on Instagram to stay up-to-date on our events and other events going on in the community.
-        On our Discord server folks share their work, trade and buy/sell gear, and share knowledge with the rest of the club.
+        Our members shoot just about everything imaginable: film, digital, portraits, landscapes, street photography, heavy-metal shows,
+        experimental work, your neighbor's weird garage, a really good-looking puddle. You get the idea.
       </p>
       <p>
-        Whether you have 1 camera or 100 or whether you've been in Washington for a few days or a few years we'd love to see you at our next meetup.
+        We host <strong>free monthly meetups for photographers and creatives of all skill levels, backgrounds, and disciplines.</strong> Some of us have been
+        shooting for decades, others are just figuring it out, but what connects us is simple: showing up, making things, and being part of
+        a creative community.
+      </p>
+      <p>We take photography seriously. <strong>Ourselves, considerably less so.</strong></p>
+      <p>
+        Whether you’re a professional or have no idea what ISO is, you’re welcome here. Come make photos, meet people, and be a part of something.
       </p>
 
       <p class="copy__cta">
-        You should follow us on <a href={site.instagram} target="_blank">Instagram</a> and join our <a href={site.discordUrl} target="_blank" rel="noopener noreferrer">Discord</a> server.
+        Follow Tacoma Photo Club on <a href={site.instagram} target="_blank">Instagram</a> and join our <a href={site.discordUrl} target="_blank" rel="noopener noreferrer">Discord</a>.
       </p>
     </div>
 
@@ -124,6 +136,8 @@ const eventCards = await Promise.all(
       ) : null
     }
   </div>
+
+  <ArtShowAd />
 
   <JoinAd />
 
