@@ -41,6 +41,15 @@ const memberModules = import.meta.glob<ImageModule>(
   { eager: true },
 );
 
+/**
+ * Selected works from the "Self, Not Selfie" 3rd anniversary show, keyed by the
+ * file names written into `self-not-selfie.json`.
+ */
+const showModules = import.meta.glob<ImageModule>(
+  "../images/self-not-selfie/*.{jpg,jpeg,png,webp,avif}",
+  { eager: true },
+);
+
 function fileName(path: string): string {
   return path.split("/").pop() ?? path;
 }
@@ -132,6 +141,12 @@ export async function getCurtainTiles(width = 420): Promise<{ src: string }[]> {
 /** Look up an event flier by its file name as written in `events.json`. */export function getEventFlier(flier: string | undefined): ImageMetadata | undefined {
   if (!flier) return undefined;
   const match = Object.entries(eventModules).find(([path]) => fileName(path) === flier);
+  return match?.[1].default;
+}
+
+/** Look up a show photo by its file name as written in `self-not-selfie.json`. */
+export function getShowImage(image: string): ImageMetadata | undefined {
+  const match = Object.entries(showModules).find(([path]) => fileName(path) === image);
   return match?.[1].default;
 }
 

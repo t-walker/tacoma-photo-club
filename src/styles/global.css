@@ -915,6 +915,168 @@ a.credit__handle:focus-visible {
   color: var(--ink-soft);
 }
 
+/* ---------- self, not selfie ---------- */
+
+.sponsors {
+  margin: clamp(1.5rem, 4vw, 2.5rem) 0;
+  padding: clamp(1rem, 3vw, 1.6rem) clamp(0.9rem, 3vw, 1.5rem);
+  border: var(--rule-nav) solid var(--navy);
+  border-top-width: var(--rule-thick);
+  text-align: center;
+}
+
+.sponsors__kicker {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.62rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  margin: 0;
+}
+
+.sponsors__heading {
+  font-family: var(--font-headline-script);
+  font-weight: 400;
+  font-size: clamp(1.9rem, 1.4rem + 2vw, 3rem);
+  line-height: 1;
+  color: var(--navy);
+  margin: 0.2rem 0 0.4rem;
+}
+
+.sponsors__note {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin: 0 0 1rem;
+}
+
+.sponsors__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem 0.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sponsor {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(0.72rem, 0.66rem + 0.25vw, 0.85rem);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: var(--rule-thin) solid var(--navy);
+  padding: 0.3rem 0.65rem;
+}
+
+.sponsor a {
+  text-decoration: none;
+  border-bottom: 2px solid var(--accent);
+}
+
+.sponsor a:hover,
+.sponsor a:focus-visible {
+  color: var(--accent-deep);
+}
+
+.gallery__heading {
+  margin: clamp(1.5rem, 4vw, 2.5rem) 0 0.75rem;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: var(--rule-thick) solid var(--navy);
+  /* Clips the column rule off the last card in every row, same trick as .labs. */
+  overflow: hidden;
+}
+
+.artist {
+  padding: clamp(0.9rem, 3vw, 1.4rem) clamp(0.75rem, 2.5vw, 1.25rem);
+  border-bottom: var(--rule-thin) solid var(--navy);
+  box-shadow: var(--rule-thin) 0 0 var(--navy);
+}
+
+.artist__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.05rem, 0.95rem + 0.5vw, 1.3rem);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--navy);
+  margin: 0 0 0.15rem;
+  /* Two lines' worth, so a long name doesn't shove one card's prints out of
+     line with its neighbours'. */
+  min-height: 2.2em;
+}
+
+.artist__handle {
+  display: inline-block;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  text-decoration: none;
+  border-bottom: 2px solid var(--accent);
+  margin: 0 0 0.75rem;
+}
+
+.artist__handle:hover,
+.artist__handle:focus-visible {
+  color: var(--accent-deep);
+}
+
+.artist__handle--none {
+  color: var(--ink-faint);
+  border-bottom: 0;
+  text-transform: none;
+  letter-spacing: 0.08em;
+}
+
+.artist__works {
+  display: grid;
+  /* Always two columns, so a lone print is the same size as one of a pair
+     instead of ballooning to fill the card. */
+  grid-template-columns: repeat(2, 1fr);
+  align-items: start;
+  gap: 0.5rem;
+}
+
+/* Every print gets the same landscape frame, filling its column — mixed
+   orientations are centre-cropped into it rather than hung at their own
+   ratio, so the wall reads as one evenly sized grid. The lightbox still
+   opens each frame whole. */
+.work {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+
+.work img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 10 / 8;
+  object-fit: cover;
+  border: var(--rule-thin) solid var(--navy);
+  background: var(--paper-edge);
+  filter: saturate(0.94);
+  transition: filter 160ms ease, transform 160ms ease;
+}
+
+.work:hover img,
+.work:focus-visible img {
+  filter: none;
+  transform: scale(1.03);
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     transition: none !important;

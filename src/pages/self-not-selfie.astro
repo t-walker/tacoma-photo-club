@@ -1,0 +1,166 @@
+---
+import { Image, getImage } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import MemberPhoto from "../components/MemberPhoto.astro";
+import { getShowImage } from "../lib/images";
+import show from "../data/self-not-selfie.json";
+
+type Work = { file: string; width: number; height: number };
+type Artist = { name: string; handle: string | null; works: Work[] };
+type Sponsor = { name: string; url?: string };
+
+const { sponsors, artists } = show as {
+  show: Record<string, string>;
+  sponsors: Sponsor[];
+  artists: Artist[];
+};
+
+const instagram = (handle: string) =>
+  `https://www.instagram.com/${handle.replace(/^@/, "")}/`;
+
+/**
+ * Every hung print, paired with its artist. Full-size sources are optimised
+ * here at build time so the lightbox swaps in a ready URL rather than blowing
+ * the grid thumbnail up.
+ */
+const wall = await Promise.all(
+  artists
+    .flatMap((artist) => artist.works.map((work) => ({ artist, work })))
+    .map(async ({ artist, work }) => {
+      const src = getShowImage(work.file);
+      if (!src) throw new Error(`Missing show image: ${work.file}`);
+      const full = await getImage({ src, width: 1600, format: "webp" });
+      return { artist, work, src, full: full.src };
+    }),
+);
+
+const byArtist = artists.map((artist) => ({
+  artist,
+  frames: wall.filter((frame) => frame.artist === artist),
+}));
+---
+
+<Base
+  title={show.show.title}
+  description={`Selected artworks from ${show.show.title}, the Tacoma Photo Club 3rd anniversary gallery show.`}
+>
+  <header class="page-head">
+    <div class="page-head__text">
+      <p class="eyebrow">{show.show.subtitle}</p>
+      <h1 class="headline">{show.show.title}</h1>
+      <p class="lede">{show.show.blurb}</p>
+      <p class="lede">
+        {show.show.when} · {show.show.venue}
+      </p>
+    </div>
+    <MemberPhoto id="show-photo" class="page-head__photo" />
+  </header>
+
+  <section class="sponsors" aria-labelledby="sponsors-heading">
+    <p class="sponsors__kicker">With thanks to</p>
+    <h2 class="sponsors__heading" id="sponsors-heading">Our sponsors</h2>
+    <p class="sponsors__note">
+      This show does not happen without them. Please go give them your business.
+    </p>
+    <ul class="sponsors__list">
+      {
+        sponsors.map((sponsor) => (
+          <li class="sponsor">
+            {sponsor.url ? (
+              <a href={sponsor.url} target="_blank" rel="noopener noreferrer">
+                {sponsor.name}
+              </a>
+            ) : (
+              sponsor.name
+            )}
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <h2 class="headline gallery__heading">Selected artworks</h2>
+
+  {
+    byArtist.length === 0 ? (
+      <p class="empty">The wall is still going up.</p>
+    ) : (
+      <ul class="gallery" id="gallery">
+        {byArtist.map(({ artist, frames }) => (
+          <li class="artist">
+            <h3 class="artist__name">{artist.name}</h3>
+            {artist.handle ? (
+              <a
+                class="artist__handle"
+                href={instagram(artist.handle)}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                @{artist.handle.replace(/^@/, "")}
+              </a>
+            ) : (
+              <span class="artist__handle artist__handle--none">Not on Instagram</span>
+            )}
+
+            <div class="artist__works">
+              {frames.map(({ src, full }) => (
+                <button
+                  class="work"
+                  type="button"
+                  data-full={full}
+                  data-caption={
+                    artist.handle
+                      ? `${artist.name} · @${artist.handle.replace(/^@/, "")}`
+                      : artist.name
+                  }
+                >
+                  <Image
+                    src={src}
+                    alt={`A photograph by ${artist.name}`}
+                    widths={[320, 640, 960]}
+                    sizes="(min-width: 720px) 170px, 40vw"
+                    loading="lazy"
+                  />
+                </button>
+              ))}
+            </div>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  <dialog class="lightbox" id="show-lightbox">
+    <form method="dialog">
+      <button class="lightbox__close" aria-label="Close">&times;</button>
+    </form>
+    <img class="lightbox__img" id="show-lightbox-img" alt="" />
+    <p class="lightbox__caption" id="show-lightbox-caption"></p>
+  </dialog>
+
+  <script is:inline>
+    // Click any print to see it full size. <dialog> handles Esc, focus trapping
+    // and returning focus for us.
+    (function () {
+      var grid = document.getElementById("gallery");
+      var box = document.getElementById("show-lightbox");
+      var img = document.getElementById("show-lightbox-img");
+      var caption = document.getElementById("show-lightbox-caption");
+      if (!grid || !box || !img || !caption || !box.showModal) return;
+
+      grid.addEventListener("click", function (event) {
+        var trigger = event.target.closest(".work");
+        if (!trigger) return;
+
+        var thumb = trigger.querySelector("img");
+        var full = trigger.getAttribute("data-full");
+        if (!full && !thumb) return;
+
+        img.src = full || thumb.currentSrc || thumb.src;
+        img.alt = thumb ? thumb.alt : "";
+        caption.textContent = trigger.getAttribute("data-caption") || "";
+        box.showModal();
+      });
+    })();
+  </script>
+</Base>

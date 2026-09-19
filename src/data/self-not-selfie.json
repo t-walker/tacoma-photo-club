@@ -1,0 +1,624 @@
+{
+  "show": {
+    "title": "Self, Not Selfie",
+    "subtitle": "Tacoma Photo Club 3rd Anniversary Gallery Show",
+    "venue": "Manuscript, 203 Tacoma Ave S, Tacoma",
+    "when": "Friday, September 19 · 6–9pm",
+    "blurb": "“Self, Not Selfie” is an invitation to explore who you are through the things you notice, the places you return to, the people you love, the objects you keep, the moments you’re drawn toward, and the way you see the world."
+  },
+  "sponsors": [
+    {
+      "name": "Godox",
+      "url": "https://www.godox.com/"
+    },
+    {
+      "name": "Speedy ePhoto",
+      "url": "https://speedyephoto.com"
+    },
+    {
+      "name": "Glazer's Camera",
+      "url": "https://www.glazerscamera.com/"
+    },
+    {
+      "name": "We Develop Film",
+      "url": "https://photo-hq.com"
+    },
+    {
+      "name": "PhotoHQ",
+      "url": "https://photo-hq.com"
+    },
+    {
+      "name": "The Red Hot",
+      "url": "https://redhottacoma.com/"
+    },
+    {
+      "name": "Frame Art & Co."
+    },
+    {
+      "name": "Tim Ryugo at Kodak",
+      "url": "https://www.kodak.com/en/"
+    },
+    {
+      "name": "The Poet Tacoma",
+      "url": "https://thepoettacoma.com/"
+    }
+  ],
+  "artists": [
+    {
+      "name": "Abbye Rose",
+      "handle": "abbye.rose",
+      "works": [
+        {
+          "file": "abbye-rose-1.jpg",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "file": "abbye-rose-2.jpg",
+          "width": 1600,
+          "height": 1067
+        }
+      ]
+    },
+    {
+      "name": "Adam Repp",
+      "handle": "letsallkilladam",
+      "works": [
+        {
+          "file": "adam-repp-1.jpg",
+          "width": 1068,
+          "height": 1600
+        },
+        {
+          "file": "adam-repp-2.jpg",
+          "width": 1075,
+          "height": 1600
+        }
+      ]
+    },
+    {
+      "name": "Akemi Sanchez",
+      "handle": "justcallmeakemi",
+      "works": [
+        {
+          "file": "akemi-sanchez-1.jpg",
+          "width": 1200,
+          "height": 1600
+        }
+      ]
+    },
+    {
+      "name": "Andrea Ackner",
+      "handle": null,
+      "works": [
+        {
+          "file": "andrea-ackner-1.jpg",
+          "width": 1600,
+          "height": 1067
+        }
+      ]
+    },
+    {
+      "name": "Angela Westergreen",
+      "handle": "heart.farts",
+      "works": [
+        {
+          "file": "angela-westergreen-1.jpg",
+          "width": 1600,
+          "height": 1014
+        },
+        {
+          "file": "angela-westergreen-2.jpg",
+          "width": 1172,
+          "height": 1600
+        }
+      ]
+    },
+    {
+      "name": "Anna Sneesby",
+      "handle": "a.sneesby",
+      "works": [
+        {
+          "file": "anna-sneesby-1.jpg",
+          "width": 1254,
+          "height": 1523
+        }
+      ]
+    },
+    {
+      "name": "Annah Kim Nelson-Feeney",
+      "handle": "annah_kim_",
+      "works": [
+        {
+          "file": "annah-kim-nelson-feeney-1.jpg",
+          "width": 1280,
+          "height": 1600
+        }
+      ]
+    },
+    {
+      "name": "Ariel Rotz",
+      "handle": "northwestnegative",
+      "works": [
+        {
+          "file": "ariel-rotz-1.jpg",
+          "width": 1280,
+          "height": 1600
+        },
+        {
+          "file": "ariel-rotz-2.jpg",
+          "width": 1600,
+          "height": 1280
+        }
+      ]
+    },
+    {
+      "name": "Brian Cortez",
+      "handle": "matevago_",
+      "works": [
+        {
+          "file": "brian-cortez-1.jpg",
+          "width": 1280,
+          "height": 1600
+        }
+      ]
+    },
+    {
+      "name": "Camille Michelle",
+      "handle": "roses.and.pine",
+      "works": [
+        {
+          "file": "camille-michelle-1.jpg",
+          "width": 1060,
+          "height": 1600
+        },
+        {
+          "file": "camille-michelle-2.jpg",
+          "width": 1061,
+          "height": 1600
+        }
+      ]
+    },
+    {
+      "name": "Casey Thurman",
+      "handle": "Northwest_Depressed",
+      "works": [
+        {
+          "file": "casey-thurman-1.jpg",
+          "width": 1600,
+          "height": 1280
+        },
+        {
+          "file": "casey-thurman-2.jpg",
+          "width": 1280,
+          "height": 1600
+        }
+      ]
+    },
+    {
+      "name": "Chad T.",
+      "handle": "colormechd",
+      "works": [
+        {
+          "file": "chad-t-1.jpg",
+          "width": 1600,
+          "height": 1061
+        }
+      ]
+    },
+    {
+      "name": "Christian Hostetler",
+      "handle": "Xicofoto",
+      "works": [
+        {
+          "file": "christian-hostetler-1.jpg",
+          "width": 1600,
+          "height": 1066
+        },
+        {
+          "file": "christian-hostetler-2.jpg",
+          "width": 1600,
+          "height": 1067
+        }
+      ]
+    },
+    {
+      "name": "Danielle Jacobson",
+      "handle": "photographydaniellerenee",
+      "works": [
+        {
+          "file": "danielle-jacobson-1.jpg",
+          "width": 1280,
+          "height": 1600
+        }
+      ]
+    },
+    {
+      "name": "Derek Heitz",
+      "handle": "____dddhhhh",
+      "works": [
+        {
+          "file": "derek-heitz-1.jpg",
+          "width": 1600,
+          "height": 1280
+        }
+      ]
+    },
+    {
+      "name": "Ellen Rumel",
+      "handle": "ellenrumel",
+      "works": [
+        {
+          "file": "ellen-rumel-1.jpg",
+          "width": 1600,
+          "height": 1061
+        },
+        {
+          "file": "ellen-rumel-2.jpg",
+          "width": 1061,
+          "height": 1600
+        }
+      ]
+    },
+    {
+      "name": "Eshani Mishra",
+      "handle": "esh_ani97",
+      "works": [
+        {
+          "file": "eshani-mishra-1.jpg",
+          "width": 1600,
+          "height": 1061
+        },
+        {
+          "file": "eshani-mishra-2.jpg",
+          "width": 1600,
+          "height": 1061
+        }
+      ]
+    },
+    {
+      "name": "Eve Ibarra",
+      "handle": "narrativelenz",
+      "works": [
+        {
+          "file": "eve-ibarra-1.jpg",
+          "width": 1600,
+          "height": 1171
+        },
+        {
+          "file": "eve-ibarra-2.jpg",
+          "width": 1600,
+          "height": 1000
+        }
+      ]
+    },
+    {
+      "name": "Jason Biehner",
+      "handle": "jasonbiehner",
+      "works": [
+        {
+          "file": "jason-biehner-1.jpg",
+          "width": 1143,
+          "height": 1600
+        },
+        {
+          "file": "jason-biehner-2.jpg",
+          "width": 1600,
+          "height": 835
+        }
+      ]
+    },
+    {
+      "name": "Jessica Franco",
+      "handle": "Photosfromjessi",
+      "works": [
+        {
+          "file": "jessica-franco-1.jpg",
+          "width": 953,
+          "height": 1600
+        }
+      ]
+    },
+    {
+      "name": "Joey Dentinger",
+      "handle": "pnw_joey",
+      "works": [
+        {
+          "file": "joey-dentinger-1.jpg",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "file": "joey-dentinger-2.jpg",
+          "width": 1600,
+          "height": 1067
+        }
+      ]
+    },
+    {
+      "name": "Jordan Willis",
+      "handle": "boredan",
+      "works": [
+        {
+          "file": "jordan-willis-1.jpg",
+          "width": 1281,
+          "height": 1600
+        },
+        {
+          "file": "jordan-willis-2.jpg",
+          "width": 1280,
+          "height": 1600
+        }
+      ]
+    },
+    {
+      "name": "Juliano Lee",
+      "handle": "julisnapside",
+      "works": [
+        {
+          "file": "juliano-lee-1.jpg",
+          "width": 1280,
+          "height": 1600
+        },
+        {
+          "file": "juliano-lee-2.jpg",
+          "width": 1280,
+          "height": 1600
+        }
+      ]
+    },
+    {
+      "name": "Ken Gibson",
+      "handle": "kengibsonphotography",
+      "works": [
+        {
+          "file": "ken-gibson-1.jpg",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "file": "ken-gibson-2.jpg",
+          "width": 1600,
+          "height": 1067
+        }
+      ]
+    },
+    {
+      "name": "Kristi Walker",
+      "handle": "kwalk_photos",
+      "works": [
+        {
+          "file": "kristi-walker-1.jpg",
+          "width": 1600,
+          "height": 1200
+        }
+      ]
+    },
+    {
+      "name": "Kyle Cornwell",
+      "handle": "doyouseewhatkc",
+      "works": [
+        {
+          "file": "kyle-cornwell-1.jpg",
+          "width": 1600,
+          "height": 1280
+        }
+      ]
+    },
+    {
+      "name": "Luey Moon",
+      "handle": "lueymoon",
+      "works": [
+        {
+          "file": "luey-moon-1.jpg",
+          "width": 1600,
+          "height": 1278
+        }
+      ]
+    },
+    {
+      "name": "Maggie D. Fedorov",
+      "handle": "maggiefedorov",
+      "works": [
+        {
+          "file": "maggie-d-fedorov-1.jpg",
+          "width": 1600,
+          "height": 1280
+        }
+      ]
+    },
+    {
+      "name": "Marji Lynn",
+      "handle": "marjilynn",
+      "works": [
+        {
+          "file": "marji-lynn-1.jpg",
+          "width": 1600,
+          "height": 1488
+        }
+      ]
+    },
+    {
+      "name": "Matt Wade",
+      "handle": "mlwadester",
+      "works": [
+        {
+          "file": "matt-wade-1.jpg",
+          "width": 1200,
+          "height": 1600
+        },
+        {
+          "file": "matt-wade-2.jpg",
+          "width": 1600,
+          "height": 1200
+        }
+      ]
+    },
+    {
+      "name": "Melissa Jividan",
+      "handle": "Dear_Melissa",
+      "works": [
+        {
+          "file": "melissa-jividan-1.jpg",
+          "width": 1061,
+          "height": 1600
+        },
+        {
+          "file": "melissa-jividan-2.jpg",
+          "width": 1600,
+          "height": 1061
+        }
+      ]
+    },
+    {
+      "name": "Noah Kehm",
+      "handle": "littlecameraguy",
+      "works": [
+        {
+          "file": "noah-kehm-1.jpg",
+          "width": 1080,
+          "height": 728
+        }
+      ]
+    },
+    {
+      "name": "Pawel Sasim",
+      "handle": "psasim",
+      "works": [
+        {
+          "file": "pawel-sasim-1.jpg",
+          "width": 1280,
+          "height": 1600
+        },
+        {
+          "file": "pawel-sasim-2.jpg",
+          "width": 1600,
+          "height": 1067
+        }
+      ]
+    },
+    {
+      "name": "Ranin Stone",
+      "handle": "mmmerchnt",
+      "works": [
+        {
+          "file": "ranin-stone-1.jpg",
+          "width": 1317,
+          "height": 1600
+        },
+        {
+          "file": "ranin-stone-2.jpg",
+          "width": 1316,
+          "height": 1600
+        }
+      ]
+    },
+    {
+      "name": "Rose Dugan-Henriksen",
+      "handle": "duganhenriksen",
+      "works": [
+        {
+          "file": "rose-dugan-henriksen-1.jpg",
+          "width": 1600,
+          "height": 1289
+        }
+      ]
+    },
+    {
+      "name": "Saketh Kulapaka",
+      "handle": "saketh.film",
+      "works": [
+        {
+          "file": "saketh-kulapaka-1.jpg",
+          "width": 1600,
+          "height": 1074
+        },
+        {
+          "file": "saketh-kulapaka-2.jpg",
+          "width": 1600,
+          "height": 1074
+        }
+      ]
+    },
+    {
+      "name": "Sam Del Shoots",
+      "handle": "samdelshoots",
+      "works": [
+        {
+          "file": "sam-del-shoots-1.jpg",
+          "width": 1086,
+          "height": 1600
+        },
+        {
+          "file": "sam-del-shoots-2.jpg",
+          "width": 1077,
+          "height": 1600
+        }
+      ]
+    },
+    {
+      "name": "Spencer Coons",
+      "handle": "spencercoons",
+      "works": [
+        {
+          "file": "spencer-coons-1.jpg",
+          "width": 1280,
+          "height": 1600
+        },
+        {
+          "file": "spencer-coons-2.jpg",
+          "width": 1280,
+          "height": 1600
+        }
+      ]
+    },
+    {
+      "name": "Stephen Whitaker",
+      "handle": "stephenwhitakerphoto",
+      "works": [
+        {
+          "file": "stephen-whitaker-1.jpg",
+          "width": 1280,
+          "height": 1600
+        },
+        {
+          "file": "stephen-whitaker-2.jpg",
+          "width": 1280,
+          "height": 1600
+        }
+      ]
+    },
+    {
+      "name": "Tyler Walker",
+      "handle": "twalkerdev",
+      "works": [
+        {
+          "file": "tyler-walker-1.jpg",
+          "width": 1280,
+          "height": 1600
+        },
+        {
+          "file": "tyler-walker-2.jpg",
+          "width": 1600,
+          "height": 1099
+        }
+      ]
+    },
+    {
+      "name": "Wenlan Shi",
+      "handle": "jack.shi2010",
+      "works": [
+        {
+          "file": "wenlan-shi-1.jpg",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "file": "wenlan-shi-2.jpg",
+          "width": 1600,
+          "height": 1600
+        }
+      ]
+    }
+  ]
+}
